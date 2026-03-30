@@ -5,11 +5,9 @@ class CalculatorUI:
         self.bg_color = "black"
         self.display_color = "white"
         
-        # Textové pole pro výsledek
         self.display = ft.Text(value="0", size=40, color="white")
 
     def build_button(self, text, color="orange", text_color="white"):
-        # Tady jsem změnil defaultní color na "orange"
         return ft.Container(
             content=ft.Text(text, size=20, color=text_color, weight="bold"),
             bgcolor=color,
@@ -28,11 +26,12 @@ class CalculatorUI:
         return ft.Column(
             controls=[
                 ft.Container(
-                    content=self.display, 
-                    padding=20, 
-                    alignment=ft.Alignment(1, 0) 
-                ),
-                # Teď jsou všechna tlačítka oranžová automaticky
+                content=self.display, 
+                padding=20, 
+                alignment=ft.Alignment(1, 0),
+                bgcolor="grey900",  
+                border_radius=10         
+            ),
                 ft.Row(controls=[
                     self.build_button("7"), self.build_button("8"), 
                     self.build_button("9"), self.build_button("/")

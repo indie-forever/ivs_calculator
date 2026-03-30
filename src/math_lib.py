@@ -189,6 +189,11 @@ class MathLib:
             vysledok=vysledok + zvysok
         vysledok = vysledok[::-1]
 
+    @staticmethod
+    def bin_to_dec(dec:str):
+        pass
+
+
     
 
 

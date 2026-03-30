@@ -1,0 +1,22 @@
+Časový plán
+1. týden (do 18. 3. 2026): volba jazyku, rozdělení práce, volba komunikačního kanálu
+2. týden (do 29. 3. 2026): návrh, základy Makefile
+3. týden (do 5. 4. 2026): seznam testovacích případů pro TDD, rozhraní knihovny, první skici GUI
+4. týden (do 19. 4. 2026): implementace matematických funkcí, tvorba funkčního okna kalkulačky, propojení, uživatelská příručka
+5. týden (do 26. 4. 2026): profiling, testování funkčnosti
+
+Rozdělení rolí
+
+K tvorbě tohoto projektu využijeme párového programování, čímž budeme předcházet chybám.
+
+Tým logika
+xstudes00 a xjanigm00
+-matematická knihovna, testy, TDD, profiling
+
+Tým mechanika
+xjindrj00 a xformad01
+-GUI, Makefile, instalátor, dokumentace
+
+Jako komunikační kanál jsme zvolili Discord, vyměnili jsme si i telefonní čísla.
+
+Systém pro správu verzí jsme zvolili Git přes Github. Url našeho repozitáře: https://github.com/simisekstudena-bit/ivs_calculator.git

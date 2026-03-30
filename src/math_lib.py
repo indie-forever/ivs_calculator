@@ -164,34 +164,7 @@ class MathLib:
         return math.log(x)/math.log(a)
     
        
-    @staticmethod
-    def dec_to_bin(dec:str):
-        """
-        
-        """
-        vysledok=""
-        
-        if "." in dec:
-            cela, desatina = dec.split(".")
-        #desatian cast
-        
-        if (desatina):
-           pass
-
-        #cela cast 
-        if "-" in cela:
-            pass
-
-        dec = int(dec)
-        while (dec > 0):
-            zvysok = str(dec % 2 )
-            dec //= 2 
-            vysledok=vysledok + zvysok
-        vysledok = vysledok[::-1]
-
-    @staticmethod
-    def bin_to_dec(dec:str):
-        pass
+    
 
 
     

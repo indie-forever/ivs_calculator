@@ -1,23 +1,21 @@
 import flet as ft
 from gui import CalculatorUI  
+from logic import CalculatorController
 
 def main(page: ft.Page):
-    page.title = "Moje Kalkulačka"
+    page.title = "IVS Calculator"
+
+    ctrl = CalculatorController()
     
     ui = CalculatorUI()
     
     def handle_click(e):
-        napsano_na_tlacitku = e.control.data 
-        
-        if ui.display.value == "0":
-            ui.display.value = napsano_na_tlacitku
-        else:
-            ui.display.value += napsano_na_tlacitku
-        
+        ctrl.handle_button(e.control.data) 
+        ui.display.value = ctrl.get_display_text()   
         page.update()
 
     ui.on_btn_click = handle_click 
-
     page.add(ui.get_view())
 
-ft.app(target=main)
+if __name__ == "__main__":
+    ft.app(target=main)

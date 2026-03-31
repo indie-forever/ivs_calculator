@@ -64,7 +64,5 @@ class TestMathBasic(unittest.TestCase):
         self.assertIsNone(MathLib.log(1, 15))
         self.assertIsNone(MathLib.log(-2, 15))       
     
-
-
 if __name__ == '__main__':
     unittest.main()

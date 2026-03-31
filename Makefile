@@ -1,18 +1,17 @@
 PYTHON = python3
-TEST_DIR = test_math.py
+SRC_DIR = src
 
-.PHONY: all test clean run help
+.PHONY: all test clean run
 
 
-all: help
+all: test
 
 test:
-	python3 src/test_math.py
+	$(PYTHON) -m unittest discover $(SRC_DIR)
 
 run:
-	$(PYTHON) src/main.py
+	$(PYTHON) $(SRC_DIR)/main.py
 
 clean:
-	rm -rf src/__pycache__
-	rm -rf __pycache__
+	rm -rf $(SRC_DIR)/__pycache__
 	rm -rf .pytest_cache

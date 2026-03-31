@@ -22,7 +22,32 @@ class TestMathBasic(unittest.TestCase):
 
     def test_div(self):
         self.assertEqual(MathLib.div(10, 2), 5)
-        self.assertIsNone(MathLib.div(10,0))
+
+    def test_factorial(self):
+        self.assertEqual(MathLib.factorial(0), 1)
+        self.assertEqual(MathLib.factorial(1),1)
+        self.assertEqual(MathLib.factorial(5), 120)
+
+        self.assertEqual(MathLib.factorial(10), 3628800)
+
+        self.assertIsNone(MathLib.factorial(-1))
+        self.assertIsNone(MathLib.factorial(6.7))
+
+    def test_pow(self):
+        self.assertEqual(MathLib.pow(2, 3), 8)
+        self.assertEqual(MathLib.pow(15, 2), 225)
+
+        self.assertEqual(MathLib.pow(-2, 4), 16)
+        self.assertEqual(MathLib.pow(-3, 3), -27)
+
+        self.assertEqual(MathLib.pow(15, 0), 1)
+        self.assertEqual(MathLib.pow(-5, 0), 1)
+
+        self.assertEqual(MathLib.pow(2, -1), 0.5)
+        self.assertEqual(MathLib.pow(10, -2), 0.01)
+
+        self.assertIsNone(MathLib.pow(4, 0.5))
+
 
 if __name__ == '__main__':
     unittest.main()

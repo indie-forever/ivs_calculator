@@ -48,6 +48,23 @@ class TestMathBasic(unittest.TestCase):
 
         self.assertIsNone(MathLib.pow(4, 0.5))
 
+    def test_root(self):
+        self.assertAlmostEqual(MathLib.root(9, 2), 3.0)
+        self.assertAlmostEqual(MathLib.root(27, 3), 3.0)
+
+        self.assertAlmostEqual(MathLib.root(0, 2), 0.0)
+
+        self.assertIsNone(MathLib.root(-4, 2))
+        self.assertIsNone(MathLib.root(15, 0))
+
+    def test_log(self):
+        self.assertAlmostEqual(MathLib.log(10, 100), 2.0)
+        self.assertIsNone(MathLib.log(15, -5))
+        self.assertIsNone(MathLib.log(15, 0))
+        self.assertIsNone(MathLib.log(1, 15))
+        self.assertIsNone(MathLib.log(-2, 15))       
+    
+
 
 if __name__ == '__main__':
     unittest.main()

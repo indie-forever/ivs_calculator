@@ -13,6 +13,43 @@ class CalculatorController:
             else:
                 self.display_value += value
 
+        elif value in ["+", "-", "*", "/"]:
+            self.first_number = float(self.display_value)
+            self.operation = value
+            self.display_value = "0"
+
+        elif value == "=":
+            if self.first_number is not None and self.operation is not None:
+            
+                try:
+                    second_number = float(self.display_value)
+
+                    if self.operation == "+":
+                        result = MathLib.add(self.first_number, second_number)
+                    
+                    elif self.operation == "-":
+                        result = MathLib.sub(self.first_number, second_number)
+
+                    elif self.operation == "*":
+                        result = MathLib.mul(self.first_number, second_number)
+
+                    elif self.operation == "/":
+                        result = MathLib.div(self.first_number, second_number)
+                    
+                    if result is None:
+                        self.display_value = "Error"
+                    else:
+                        self.display_value = str(result)
+
+                except ZeroDivisionError:
+                    self.display_value = "Error"
+                except Exception:
+                    self.display_value = "Error"
+
+                self.first_number = None
+                self.operation = None
+
+
         elif value == "C":
             self.display_value = "0"
             self.first_number = None

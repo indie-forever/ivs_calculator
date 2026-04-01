@@ -17,10 +17,13 @@ sum_x_sq = 0.0
 #nacitanie
 def process_value(val_str):
     global n, sum_x, sum_x_sq
-    val = float(val_str)
-    n += 1
-    sum_x = MathLib.add(sum_x, val)
-    sum_x_sq = MathLib.add(MathLib.pow(val, 2), sum_x_sq)
+    try:
+        val = float(val_str)
+        n += 1
+        sum_x = MathLib.add(sum_x, val)
+        sum_x_sq = MathLib.add(MathLib.pow(val, 2), sum_x_sq)
+    except ValueError:
+        pass
 
 
 if len(sys.argv) > 1:
@@ -29,13 +32,19 @@ if len(sys.argv) > 1:
         process_value(arg)
 else:
     
+    if sys.stdin.isatty():
+        sys.stderr.write("vstup nebol zadany\n")
+        sys.exit(1)
+
+
     for line in sys.stdin:
         for word in line.split():
             process_value(word)
 
 def calculate_mean(n, sum_x):
     """Vypočíta aritmetický priemer pomocou MathLib."""
-
+    if n < 2:
+        return 0.0
     if n == 0:
         return 0
     
@@ -52,5 +61,14 @@ def calculate_stddev(n, sum_x, sum_x_sq):
 
     return MathLib.root(temp,2)
 
-vysledok = calculate_stddev(n, sum_x, sum_x_sq)
-print(vysledok)
+
+
+
+if n >1:
+    vysledok = calculate_stddev(n, sum_x, sum_x_sq)
+    print(vysledok)
+elif n==1 :
+    print("0.0")
+else:
+    
+    sys.exit(0)

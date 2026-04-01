@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+import sys
+import os
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+src_path = os.path.abspath(os.path.join(current_dir, "..", "src"))
+if src_path not in sys.path:
+    sys.path.append(src_path)
+
+from math_lib import MathLib
+
+
+n = 0
+sum_x = 0.0
+sum_x_sq = 0.0
+
+#nacitanie
+def process_value(val_str):
+    global n, sum_x, sum_x_sq
+    val = float(val_str)
+    n += 1
+    sum_x = MathLib.add(sum_x, val)
+    sum_x_sq = MathLib.add(MathLib.pow(val, 2), sum_x_sq)
+
+
+if len(sys.argv) > 1:
+    
+    for arg in sys.argv[1:]:
+        process_value(arg)
+else:
+    
+    for line in sys.stdin:
+        for word in line.split():
+            process_value(word)
+
+def calculate_mean(n, sum_x):
+    """Vypočíta aritmetický priemer pomocou MathLib."""
+
+    if n == 0:
+        return 0
+    
+    mean =MathLib.div(sum_x,n)
+    return mean
+
+
+
+def calculate_stddev(n, sum_x, sum_x_sq):
+
+    numerator = MathLib.sub(sum_x_sq, MathLib.mul(n, MathLib.pow(calculate_mean(n, sum_x), 2)))
+
+    temp = MathLib.div(numerator, MathLib.sub(n, 1))
+
+    return MathLib.root(temp,2)
+
+vysledok = calculate_stddev(n, sum_x, sum_x_sq)
+print(vysledok)

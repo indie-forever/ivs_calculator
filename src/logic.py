@@ -1,23 +1,44 @@
-from math_lib import MathLib
+from parser import ExpressionParser
 
 class CalculatorController:
     def __init__(self):
         self.display_value = "0"
-        self.first_number = None
-        self.operation = None
+        self.expression = ""
 
     def handle_button(self, value):
-        if value.isdigit():
-            if self.display_value == "0":
+        if value.isdigit() or value == ".":
+            if self.display_value == "0" and value != ".":
                 self.display_value = value
             else:
                 self.display_value += value
+            self.expression += value
 
         elif value in ["+", "-", "*", "/"]:
-            self.first_number = float(self.display_value)
-            self.operation = value
+            self.expression += value
             self.display_value = "0"
 
+        elif value in ["!", "log"]:
+            self.expression += value
+            parser = ExpressionParser()
+            result = parser.parse_and_calc(self.expression)
+            self.display_value = str(float(result))
+            self.expression = self.display_value
+        
+        elif value == "C":
+            self.display_value = "0"
+            self.expression = ""
+
+        elif value == "=":
+            parser = ExpressionParser()
+            result = parser.parse_and_calc(self.expression)
+            self.display_value = str(result)
+            self.expression = self.display_value
+
+    def get_display_text(self):
+        return self.display_value
+
+
+"""
         elif value == "=":
             if self.first_number is not None and self.operation is not None:
             
@@ -68,12 +89,4 @@ class CalculatorController:
 
             except Exception:
                 self.display_value = "Error"
-
-        elif value == "C":
-            self.display_value = "0"
-            self.first_number = None
-            self.operation = None
-
-    def get_display_text(self):
-        return self.display_value
-
+            """

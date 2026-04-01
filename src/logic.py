@@ -49,6 +49,25 @@ class CalculatorController:
                 self.first_number = None
                 self.operation = None
 
+        elif value == "!":
+            try:
+                n = int(float(self.display_value))
+                result = MathLib.factorial(n)
+                self.display_value = str(float(result))
+            except Exception:
+                self.display_value = "Error"
+
+        elif value == "log":
+            try:
+                x = float(self.display_value)
+                result = MathLib.log(10, x)
+                if result is None:
+                    self.get_display_value = "Error"
+                else:
+                    self.display_value = str(float(result))
+
+            except Exception:
+                self.display_value = "Error"
 
         elif value == "C":
             self.display_value = "0"

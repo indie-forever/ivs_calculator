@@ -45,4 +45,18 @@ class TestMain(unittest.TestCase):
         ctrl.handle_button("0")
         ctrl.handle_button("=")
         self.assertEqual(ctrl.get_display_text(), "Error")
+
+    def test_factorial(self):
+        ctrl = CalculatorController()
+        ctrl.handle_button("5")
+        ctrl.handle_button("!")
+        self.assertEqual(ctrl.get_display_text(), "120.0")
+
+    def test_logarithm(self):
+        ctrl = CalculatorController()
+        ctrl.handle_button("1")
+        ctrl.handle_button("0")
+        ctrl.handle_button("0")
+        ctrl.handle_button("log")
+        self.assertEqual(ctrl.get_display_text(), "2.0")
         

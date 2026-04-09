@@ -13,17 +13,10 @@ class CalculatorController:
                 self.display_value += value
             self.expression += value
 
-        elif value in ["+", "-", "*", "/"]:
+        elif value in ["+", "-", "*", "/", "^", "root", "(", ")", "!", "log"]:
             self.expression += value
             self.display_value = "0"
 
-        elif value in ["!", "log"]:
-            self.expression += value
-            parser = ExpressionParser()
-            result = parser.parse_and_calc(self.expression)
-            self.display_value = str(float(result))
-            self.expression = self.display_value
-        
         elif value == "C":
             self.display_value = "0"
             self.expression = ""
@@ -31,7 +24,12 @@ class CalculatorController:
         elif value == "=":
             parser = ExpressionParser()
             result = parser.parse_and_calc(self.expression)
-            self.display_value = str(result)
+            try:
+                formatted_res = str(float(result))
+                self.display_value = formatted_res
+            except (ValueError, TypeError):
+                self.display_value = str(result)
+
             self.expression = self.display_value
 
     def get_display_text(self):

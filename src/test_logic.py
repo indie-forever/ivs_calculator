@@ -50,13 +50,57 @@ class TestMain(unittest.TestCase):
         ctrl = CalculatorController()
         ctrl.handle_button("5")
         ctrl.handle_button("!")
+        ctrl.handle_button("=")
         self.assertEqual(ctrl.get_display_text(), "120.0")
 
     def test_logarithm(self):
         ctrl = CalculatorController()
         ctrl.handle_button("1")
         ctrl.handle_button("0")
-        ctrl.handle_button("0")
         ctrl.handle_button("log")
+        ctrl.handle_button("1")
+        ctrl.handle_button("0")
+        ctrl.handle_button("0")
+        ctrl.handle_button("=")
         self.assertEqual(ctrl.get_display_text(), "2.0")
-        
+
+    def test_logarithm_dif_base(self):
+        ctrl = CalculatorController()
+        ctrl.handle_button("2")
+        ctrl.handle_button("log")
+        ctrl.handle_button("8")
+        ctrl.handle_button("=")
+        self.assertEqual(ctrl.get_display_text(), "3.0")
+
+    def test_power(self):
+        ctrl = CalculatorController()
+        ctrl.handle_button("2")
+        ctrl.handle_button("^")
+        ctrl.handle_button("3")
+        ctrl.handle_button("=")
+        self.assertEqual(ctrl.get_display_text(), "8.0")
+
+    def test_priority(self):
+        ctrl = CalculatorController()
+        ctrl.handle_button("2")
+        ctrl.handle_button("+")
+        ctrl.handle_button("3")
+        ctrl.handle_button("*")
+        ctrl.handle_button("4")
+        ctrl.handle_button("=")
+        self.assertEqual(ctrl.get_display_text(), "14.0")
+
+    def test_brackets_and_priority(self):
+        ctrl = CalculatorController()
+        ctrl.handle_button("(")
+        ctrl.handle_button("2")
+        ctrl.handle_button("+")
+        ctrl.handle_button("3")
+        ctrl.handle_button(")")
+        ctrl.handle_button("*")
+        ctrl.handle_button("4")
+        ctrl.handle_button("=")
+        self.assertEqual(ctrl.get_display_text(), "20.0")
+
+    if __name__ == '__main__':
+        unittest.main()

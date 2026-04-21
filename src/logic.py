@@ -1,11 +1,31 @@
+##
+# @file logic.py
+# @author Simona Studená (xstudes00)
+# @brief Controller for managing calculator logic and UI interaction.
+#
+
 from parser import ExpressionParser
 
+##
+# @class CalculatorController
+# @brief Coordinates interaction between the user interface and the expression parser.
+#
 class CalculatorController:
+    ##
+    # @brief Initializes the controller with default display and expression values.
+    #
     def __init__(self):
+        ## @var display_value Current string shown on the calculator display.
         self.display_value = "0"
+        ## @var expression Internal string representing the full mathematical expression.
         self.expression = ""
 
+    ##
+    # @brief Handles button clicks from the UI and updates the internal state.
+    # @param value The value of the button pressed (number, operator, or command).
+    #
     def handle_button(self, value):
+        # Handle numbers and decimal points.
         if value.isdigit() or value == ".":
             if self.display_value == "0" and value != ".":
                 self.display_value = value
@@ -13,78 +33,34 @@ class CalculatorController:
                 self.display_value += value
             self.expression += value
 
+        # Handle operators
         elif value in ["+", "-", "*", "/", "^", "root", "(", ")", "!", "log"]:
             self.expression += value
             self.display_value = "0"
 
+        # Handle clear command.
         elif value == "C":
             self.display_value = "0"
             self.expression = ""
 
+        # Handle evaluation command
         elif value == "=":
             parser = ExpressionParser()
             result = parser.parse_and_calc(self.expression)
+            # Try to format as float string.
             try:
                 formatted_res = str(float(result))
                 self.display_value = formatted_res
+            # In a case of error, display a string.
             except (ValueError, TypeError):
                 self.display_value = str(result)
 
-            self.expression = self.display_value
+        # Update expression for further calculations.
+        self.expression = self.display_value
 
+    ##
+    # @brief Returns the current text to be displayed on the calculator.
+    # @return String containing the current display value.
+    #
     def get_display_text(self):
         return self.display_value
-
-
-"""
-        elif value == "=":
-            if self.first_number is not None and self.operation is not None:
-            
-                try:
-                    second_number = float(self.display_value)
-
-                    if self.operation == "+":
-                        result = MathLib.add(self.first_number, second_number)
-                    
-                    elif self.operation == "-":
-                        result = MathLib.sub(self.first_number, second_number)
-
-                    elif self.operation == "*":
-                        result = MathLib.mul(self.first_number, second_number)
-
-                    elif self.operation == "/":
-                        result = MathLib.div(self.first_number, second_number)
-                    
-                    if result is None:
-                        self.display_value = "Error"
-                    else:
-                        self.display_value = str(result)
-
-                except ZeroDivisionError:
-                    self.display_value = "Error"
-                except Exception:
-                    self.display_value = "Error"
-
-                self.first_number = None
-                self.operation = None
-
-        elif value == "!":
-            try:
-                n = int(float(self.display_value))
-                result = MathLib.factorial(n)
-                self.display_value = str(float(result))
-            except Exception:
-                self.display_value = "Error"
-
-        elif value == "log":
-            try:
-                x = float(self.display_value)
-                result = MathLib.log(10, x)
-                if result is None:
-                    self.get_display_value = "Error"
-                else:
-                    self.display_value = str(float(result))
-
-            except Exception:
-                self.display_value = "Error"
-            """

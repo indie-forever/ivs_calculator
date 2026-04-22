@@ -17,6 +17,11 @@ sum_x = 0.0         # Sum of all input values
 sum_x_sq = 0.0      # Sum of squares of input values
 
 def process_value(val_str):
+    """
+    @brief Processes a biological string input, converts it to a float, and updates global statistical accumulators.
+    @param val_str The input string representing a numerical value.
+    @return None
+    """
     global n, sum_x, sum_x_sq
     try:
         val = float(val_str)
@@ -43,7 +48,12 @@ else:
             process_value(word)
 
 def calculate_mean(n, sum_x):
-    """Calculates the arithmetic mean using MathLib."""
+    """
+    @brief Calculates the arithmetic mean from the number of elements and their sum.
+    @param n The sample size .
+    @param sum_x The total sum of the values.
+    @return The arithmetic mean as a float, or 0.0 if the sample size is insufficient.
+    """
 
     if n < 2:
         return 0.0
@@ -56,7 +66,13 @@ def calculate_mean(n, sum_x):
 
 
 def calculate_stddev(n, sum_x, sum_x_sq):
-    """Calculates the sample standard deviation."""
+    """
+    @brief Calculates the sample standard deviation.
+    @param n The sample size.
+    @param sum_x The total sum of the values.
+    @param sum_x_sq The total sum of the squares of the values.
+    @return The sample standard deviation as a float.
+    """
 
     numerator = MathLib.sub(sum_x_sq, MathLib.mul(n, MathLib.pow(calculate_mean(n, sum_x), 2)))
 

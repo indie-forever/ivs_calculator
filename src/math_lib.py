@@ -3,72 +3,56 @@ import sys
 
 class MathLib:
     """
-    Matematická knižnica určená pre základné a pokročilé operácie.
-    Obsahuje sčítanie, odčítanie, násobenie, delenie, faktoriál, 
-    n-tú odmocninu, mocninu a dekadický logaritmus.
-    Všetky výpočty prebiehajú v decimálnej sústave.
+    @brief A mathematical library for basic and advanced arithmetic operations.
+    @details Provides functionality for addition, subtraction, multiplication, 
+    division, factorial, n-th root, power, and logarithms.
     """
     
     @staticmethod
     def add(a, b):
         """
-        Vráti súčet dvoch čísel.
+        @brief Calculates the sum of two numbers.
         
-        Parametre:
-            a (float/int) 
-            b (float/int)
-            
-            
-            
-        Návratová hodnota:
-        
-            float/int: Súčet parametrov a + b.
+        @param a The first number.
+        @param b The second number.
+        @return The result of a + b.
         """
         return a + b
     
     @staticmethod
     def sub(a, b):
         """
-        Vráti rozdiel dvoch čísel.
+        @brief Calculates the difference between two numbers.
         
-        Parametre:
-            a (float/int)
-            b (float/int) 
-
-        Návratová hodnota:
-            float/int: Rozdiel parametrov a - b.
+        @param a The initial value.
+        @param b The value to subtract.
+        @return The result of a - b.
         """
         return a - b
     
     @staticmethod
     def mul(a, b):
         """
-        Vráti súčin dvoch čísel.
+        @brief Calculates the product of two numbers.
         
-        Parametre:
-            a (float/int)
-            b (float/int)
-            
-        Návratová hodnota:
-            float/int: Súčin parametrov a * b.
+        @param a The first factor.
+        @param b The second factor.
+        @return The result of a * b.
         """
         return a * b
     
     @staticmethod
     def div(a, b):
         """
-        Vráti podiel dvoch čísel. Ošetruje delenie nulou.
+        @brief Calculates the quotient of two numbers with zero division check.
         
-        Parametre:
-            a (float/int): Delenec.
-            b (float/int): Deliteľ (nesmie byť 0).
-            
-        Návratová hodnota:
-            float: Podiel a / b alebo None pri pokuse o delenie nulou.
+        @param a The dividend.
+        @param b The divisor (must not be 0).
+        @return The result of a / b, or None if division by zero is attempted.
         """
         #kontrola ci nedelime 0 
         if b == 0:
-            sys.stderr.write("Chyba: Delenie nulou!\n") 
+            sys.stderr.write("Error: Division by zero!\n") 
             return None
         return a / b
 
@@ -76,21 +60,17 @@ class MathLib:
     @staticmethod
     def factorial(a):
         """
-        Vypočíta faktoriál celého nezáporného čísla.
+        @brief Calculates the factorial of a non-negative integer.
         
-        Parametre:
-            a (int/float): Číslo, z ktorého sa počíta faktoriál. 
-                           Musí to byť celé nezáporné číslo.
-            
-        Návratová hodnota:
-            int: Výsledok faktoriálu alebo None pri chybe.
+        @param a The number to calculate the factorial from (must be a non-negative integer).
+        @return The factorial result, or None if the input is invalid.
         """
-        # 1. Kontrola, či je to celé číslo
+       
         if a % 1 != 0:
             sys.stderr.write("Error: Factorial takes only integer!\n")
             return None
         
-        # 2. Kontrola, či nie je záporné 
+       
         if a < 0:
             sys.stderr.write("Error: Factorial number must be 0 or higher!\n")
             return None
@@ -105,14 +85,11 @@ class MathLib:
     @staticmethod
     def pow(base, exponent):
         """
-        Vypočíta mocninu čísla. Podporuje celé exponenty .
+        @brief Calculates the power of a number.
         
-        Parametre:
-            base (float/int): Základ mocniny.
-            exponent (int): Celé číslo .
-            
-        Návratová hodnota:
-            float/int: Výsledok base^exponent alebo None pri chybe.
+        @param base The base of the power.
+        @param exponent The exponent (must be an integer).
+        @return The result of base^exponent, or None if the exponent is not an integer.
         """
         if exponent % 1 != 0: sys.stderr.write("Error: Exponent must be an integer\n"); return None
         
@@ -132,13 +109,11 @@ class MathLib:
     @staticmethod
     def root(A, n):
         """
-        Vypočíta n-tú odmocninu z čísla A.
+        @brief Calculates the n-th root of a number A.
         
-        Parametre:
-            A (float/int): Číslo, ktoré odmocňujeme.
-            n (float/int): Stupeň odmocniny.
-        Návratová hodnota:
-            float: n-tá odmocnina z A alebo None pri chybe .
+        @param A The value to be rooted.
+        @param n The degree of the root (must be positive).
+        @return The n-th root of A, or None if parameters are invalid.
         """
         if n <= 0: sys.stderr.write("Error: Root degree must be positive\n"); return None
         if A < 0 and n % 2 == 0: sys.stderr.write("Error: Even root of negative number\n"); return None
@@ -148,33 +123,13 @@ class MathLib:
     @staticmethod
     def log(a, x):
         """
-        Vypočíta logaritmus čísla x o základe a.
+        @brief Calculates the logarithm of x with base a.
 
-        Parametre:
-            a (float/int): Základ logaritmu .
-            x (float/int): Číslo, ktorého logaritmus hľadáme .
-
-        Návratová hodnota:
-            float: Výsledok log_a(x) alebo None pri chybe .
-        
+        @param a The base of the logarithm (must be positive and not equal to 1).
+        @param x The value to calculate the logarithm for (must be greater than 0).
+        @return The result of log_a(x), or None if parameters are invalid.
         """
         if x <= 0: sys.stderr.write("Error: Logarithm argument x must be greater than 0\n"); return None
         if a <= 0 or a == 1: sys.stderr.write("Error: Logarithm base a must be greater than 0 and not equal to 1\n"); return None
 
         return math.log(x)/math.log(a)
-    
-       
-    
-
-
-    
-
-
-        
-
-
-
-        
-    
-
-    

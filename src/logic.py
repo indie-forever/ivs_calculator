@@ -55,8 +55,8 @@ class CalculatorController:
             except (ValueError, TypeError):
                 self.display_value = str(result)
 
-        # Update expression for further calculations.
-        self.expression = self.display_value
+            # Update expression for further calculations.
+            self.expression = self.display_value
 
     ##
     # @brief Returns the current text to be displayed on the calculator.

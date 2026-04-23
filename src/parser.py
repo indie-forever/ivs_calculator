@@ -36,8 +36,21 @@ class ExpressionParser:
             # \d+\.?\d*     : Numeric literals (one or more digits, optional floating point, zero or more digits).
             # [+\-*/!^()]   : Single character operators and brackets.
             # log|root      : Multi character function names.
-            tokens = re.findall(r'-?\d+\.?\d*|\d+\.?\d*|[+\-*/!^()]|log|root', expression)
+            tokens = re.findall(r'\d+\.?\d*|[+\-*/!^()]|log|root', expression)
             if not tokens: return "0"
+
+            processed_tokens = []
+            i = 0
+            while i < len(tokens):
+                # If '-' is the first symbol or right after parentheses or an operator, the number after is negative.
+                if tokens[i] == '-' and (i == 0 or tokens[i-1] in "+-*/(^logroot"):
+                    if i + 1 < len(tokens):
+                        processed_tokens.append("-" + tokens[i+1])
+                        i += 2
+                        continue
+                processed_tokens.append(tokens[i])
+                i += 1
+            tokens = processed_tokens
 
             # Apply operations in order of mathematical priority.
             tokens = self.process_unaries(tokens)

@@ -6,6 +6,7 @@ class CalculatorUI:
         self.display_color = "white"
         self.display = ft.Text(value="0", size=40, color="white")
         self.on_btn_click = None
+        self.on_go_to_settings = None
 
     def build_button(self, text, color="orange", text_color="white"):
         return ft.Container(
@@ -37,37 +38,32 @@ class CalculatorUI:
                         )
                     ]
                 ),
+                ft.Row(spacing=10, controls=[self.build_button("7"), self.build_button("8"), self.build_button("9"), self.build_button("/"), self.build_button("^")]),
+                ft.Row(spacing=10, controls=[self.build_button("4"), self.build_button("5"), self.build_button("6"), self.build_button("*"), self.build_button("√")]),
+                ft.Row(spacing=10, controls=[self.build_button("1"), self.build_button("2"), self.build_button("3"), self.build_button("-"), self.build_button("(")]),
+                ft.Row(spacing=10, controls=[self.build_button("C", color="red"), self.build_button("0"), self.build_button("="), self.build_button("+"), self.build_button(")")]),
+                
                 ft.Row(
-                    spacing=10,
                     controls=[
-                        self.build_button("7"), self.build_button("8"), 
-                        self.build_button("9"), self.build_button("/"),
-                        self.build_button("^")
+                        ft.ElevatedButton(
+                            "Nastavení / Info", 
+                            on_click=lambda _: self.on_go_to_settings() if self.on_go_to_settings else None,
+                            expand=True,
+                            style=ft.ButtonStyle(color="white", bgcolor="blue_grey_700")
+                        )
                     ]
-                ),
-                ft.Row(
-                    spacing=10,
-                    controls=[
-                        self.build_button("4"), self.build_button("5"), 
-                        self.build_button("6"), self.build_button("*"),
-                        self.build_button("√")
-                    ]
-                ),
-                ft.Row(
-                    spacing=10,
-                    controls=[
-                        self.build_button("1"), self.build_button("2"), 
-                        self.build_button("3"), self.build_button("-"),
-                        self.build_button("(")
-                    ]
-                ),
-                ft.Row(
-                    spacing=10,
-                    controls=[
-                        self.build_button("C", color="red"), 
-                        self.build_button("0"), self.build_button("="), 
-                        self.build_button("+"), self.build_button(")")
-                    ]
-                ),
+                )
+            ]
+        )
+
+    def get_settings_view(self, on_back):
+        return ft.Column(
+            expand=True,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            alignment=ft.MainAxisAlignment.CENTER,
+            controls=[
+                ft.Text("Nová Stránka", size=30, weight="bold"),
+                ft.Text("Zde může být info o projektu IVS", size=16),
+                ft.ElevatedButton("Zpět ke kalkulačce", on_click=lambda _: on_back())
             ]
         )

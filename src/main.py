@@ -2,30 +2,35 @@ import flet as ft
 from gui import CalculatorUI  
 from logic import CalculatorController
 
-
 def main(page: ft.Page):
-
     ctrl = CalculatorController()
-    page.title = "Moje Kalkulačka"
-
-    page.theme_mode = ft.ThemeMode.DARK 
-
-    page.padding = 5
-    
-    page.window_width = 390   # Ubrali jsme cca 70 pixelů
-    page.window_height = 450  # Ubrali jsme cca 30 pixelů
-    
-    page.window_resizable = False
-    
     ui = CalculatorUI()
     
+    page.title = "Moje Kalkulačka"
+    page.theme_mode = ft.ThemeMode.DARK 
+    page.padding = 10
+    
+    page.window_width = 400
+    page.window_height = 750
+    page.window_resizable = False
+
     def handle_click(e):
         ctrl.handle_button(e.control.data) 
         ui.display.value = ctrl.get_display_text()   
         page.update()
 
+    def show_calc():
+        page.clean()
+        page.add(ui.get_view())
+
+    def show_settings():
+        page.clean()
+        page.add(ui.get_settings_view(on_back=show_calc))
+
     ui.on_btn_click = handle_click 
-    page.add(ui.get_view())
+    ui.on_go_to_settings = show_settings
+
+    show_calc()
 
 if __name__ == "__main__":
     ft.app(target=main)

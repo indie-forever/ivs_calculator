@@ -1,26 +1,30 @@
 import flet as ft
-from gui import CalculatorUI  
+from gui import CalculatorUI
 from logic import CalculatorController
 
 def main(page: ft.Page):
+    # Inicializace logiky a UI
     ctrl = CalculatorController()
-    ui = CalculatorUI()
+    ui = CalculatorUI(page)
     
-    page.title = "Moje Kalkulačka"
+    # Nastavení okna
+    page.title = "IVS Kalkulačka"
     page.theme_mode = ft.ThemeMode.DARK 
     page.padding = 10
-    
     page.window_width = 400
     page.window_height = 750
     page.window_resizable = False
 
-    def handle_click(e):
-        ctrl.handle_button(e.control.data) 
-        ui.display.value = ctrl.get_display_text()   
+    def handle_click(formula):
+        ctrl.expression = formula 
+        ctrl.handle_button("=") # Vyvoláme výpočet
+        ui.display.value = ctrl.get_display_text()
+        ui.current_formula = ui.display.value 
         page.update()
 
     def show_calc():
         page.clean()
+        ui.display.value = ctrl.get_display_text()
         page.add(ui.get_view())
 
     def show_settings():

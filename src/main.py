@@ -3,7 +3,6 @@ from gui import CalculatorUI
 from logic import CalculatorController
 
 def main(page: ft.Page):
-    # Inicializace logiky a UI
     ctrl = CalculatorController()
     ui = CalculatorUI(page)
     

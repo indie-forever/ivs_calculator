@@ -184,5 +184,24 @@ class TestMain(unittest.TestCase):
         self.ctrl.handle_button("=")
         self.assertEqual(self.ctrl.get_display_text(), "20.0")
 
+    ##
+    # @brief Test corretness of an expression with multiple parentheses.
+    #
+    def test_multiple_brackets(self):
+        self.ctrl.handle_button("2")
+        self.ctrl.handle_button("*")
+        self.ctrl.handle_button("(")
+        self.ctrl.handle_button("3")
+        self.ctrl.handle_button("-")
+        self.ctrl.handle_button("(")
+        self.ctrl.handle_button("8")
+        self.ctrl.handle_button("/")
+        self.ctrl.handle_button("2")
+        self.ctrl.handle_button(")")
+        self.ctrl.handle_button(")")
+        self.ctrl.handle_button("=")
+        self.assertEqual(self.ctrl.get_display_text(), "-2.0")
+
+
     if __name__ == '__main__':
         unittest.main()

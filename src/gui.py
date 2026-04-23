@@ -13,9 +13,8 @@ class CalculatorUI:
         class FakeEvent:
             def __init__(self, data):
                 self.control = type('obj', (object,), {'data': data})
-
         key = e.key
-        if key in "0123456789+-*/^().,":
+        if key in "0123456789+-*/^().,!":
             self.internal_handle_click(FakeEvent(key.replace(",", ".")))
         elif key == "Enter":
             self.internal_handle_click(FakeEvent("="))
@@ -27,21 +26,21 @@ class CalculatorUI:
                 self.display.value = self.current_formula if self.current_formula else "0"
                 if self.page: self.page.update()
 
-    def build_button(self, text, color="orange", text_color="white"):
+    def build_button(self, text, color="grey800", text_color="white", expand=1, height=70, action=None):
         return ft.Container(
-            content=ft.Text(text, size=20, color=text_color, weight="bold"),
+            content=ft.Text(text, size=16, color=text_color, weight="bold"),
             bgcolor=color,
             border_radius=10,
             alignment=ft.Alignment(0, 0), 
-            expand=1,
-            height=70,
-            on_click=self.internal_handle_click,
+            expand=expand,
+            height=height,
+            on_click=action if action else self.internal_handle_click,
             data=text
         )
 
     def internal_handle_click(self, e):
         value = e.control.data
-        operators = ["+", "-", "*", "/", "^", "root"]
+        operators = ["+", "-", "*", "/", "^", "root", "log", "!", "(", ")"]
 
         if self.display.value == "Error":
             self.current_formula = ""
@@ -74,14 +73,13 @@ class CalculatorUI:
                 if self.current_formula:
                     if self.current_formula.endswith(tuple(operators)):
                         self.current_formula = self.current_formula[:-1]
-                elif value != "-":
+                elif value not in ["-", "log", "("]:
                     return
             
-            if self.current_formula == "" and (value.isdigit() or value == "("):
+            if self.current_formula == "" and (value.isdigit() or value == "(" or value == "log"):
                 self.current_formula = str(value)
             else:
                 self.current_formula += str(value)
-                
             self.display.value = self.current_formula
         
         if self.page: self.page.update()
@@ -92,29 +90,48 @@ class CalculatorUI:
         
         return ft.Column(
             expand=True,
-            spacing=10,
+            spacing=15,
             controls=[
                 ft.Row(controls=[ft.Container(content=self.display, padding=20, bgcolor="grey900", alignment=ft.Alignment(1, 0), border_radius=10, height=120, expand=True)]),
-                ft.Row(spacing=10, controls=[self.build_button("7"), self.build_button("8"), self.build_button("9"), self.build_button("/"), self.build_button("^")]),
-                ft.Row(spacing=10, controls=[self.build_button("4"), self.build_button("5"), self.build_button("6"), self.build_button("*"), self.build_button("root")]),
-                ft.Row(spacing=10, controls=[self.build_button("1"), self.build_button("2"), self.build_button("3"), self.build_button("-"), self.build_button("(")]),
-                ft.Row(spacing=10, controls=[self.build_button("C", color="red"), self.build_button("0"), self.build_button("="), self.build_button("+"), self.build_button(")")]),
-                ft.Row(controls=[ft.ElevatedButton("verze 2.0", on_click=lambda _: self.on_go_to_settings() if self.on_go_to_settings else None, expand=True, style=ft.ButtonStyle(color="white", bgcolor="blue_grey_700"))])
+                ft.Row(
+                    spacing=10,
+                    controls=[
+                        ft.Column(
+                            expand=3,
+                            spacing=10,
+                            controls=[
+                                ft.Row(spacing=10, controls=[self.build_button("7"), self.build_button("8"), self.build_button("9")]),
+                                ft.Row(spacing=10, controls=[self.build_button("4"), self.build_button("5"), self.build_button("6")]),
+                                ft.Row(spacing=10, controls=[self.build_button("1"), self.build_button("2"), self.build_button("3")]),
+                                ft.Row(spacing=10, controls=[self.build_button("0"), self.build_button("=", color="orange"), self.build_button("C", color="red")]),
+                            ]
+                        ),
+                        ft.Column(
+                            expand=3,
+                            spacing=10,
+                            controls=[
+                                ft.Row(spacing=10, controls=[self.build_button("/", color="grey700"), self.build_button("root", color="grey700"), self.build_button("(", color="grey700")]),
+                                ft.Row(spacing=10, controls=[self.build_button("*", color="grey700"), self.build_button("^", color="grey700"), self.build_button(")", color="grey700")]),
+                                ft.Row(spacing=10, controls=[self.build_button("-", color="grey700"), self.build_button("log", color="grey700"), self.build_button(".", color="grey700")]),
+                                ft.Row(spacing=10, controls=[self.build_button("+", color="grey700"), self.build_button("!", color="grey700"), self.build_button("Verze 2.0", color="blue_grey_700", action=lambda _: self.on_go_to_settings())]),
+                            ]
+                        )
+                    ]
+                ),
             ]
         )
 
     def get_settings_view(self, on_back):
         if self.page:
             self.page.on_keyboard_event = None
-            
         return ft.Column(
-            expand=True,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            alignment=ft.MainAxisAlignment.CENTER,
+            expand=True, 
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER, 
+            alignment=ft.MainAxisAlignment.CENTER, 
             controls=[
-                ft.Text("Projekt IVS", size=30, weight="bold", color="white"),
-                ft.Text("Kalkulačka verze 2.0", size=16, color="grey"),
-                ft.Divider(height=20, color="transparent"),
+                ft.Text("Projekt IVS", size=30, weight="bold", color="white"), 
+                ft.Text("verze 2.0", size=16, color="grey"), 
+                ft.Divider(height=20, color="transparent"), 
                 ft.ElevatedButton("Zpět ke kalkulačce", on_click=lambda _: on_back())
             ]
         )

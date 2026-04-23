@@ -36,7 +36,7 @@ class ExpressionParser:
             # \d+\.?\d*     : Numeric literals (one or more digits, optional floating point, zero or more digits).
             # [+\-*/!^()]   : Single character operators and brackets.
             # log|root      : Multi character function names.
-            tokens = re.findall(r'\d+\.?\d*|[+\-*/!^()]|log|root', expression)
+            tokens = re.findall(r'-?\d+\.?\d*|\d+\.?\d*|[+\-*/!^()]|log|root', expression)
             if not tokens: return "0"
 
             # Apply operations in order of mathematical priority.

@@ -74,7 +74,7 @@ class CalculatorUI:
                 if self.current_formula:
                     if self.current_formula.endswith(tuple(strict_operators)):
                         self.current_formula = self.current_formula[:-1]
-                elif value not in ["-", "log"]:
+                elif value not in ["-", "log", "("]:
                     return
             
             if self.current_formula == "" and (value.isdigit() or value == "(" or value == "log"):
@@ -88,7 +88,24 @@ class CalculatorUI:
     def get_view(self):
         if self.page:
             self.page.on_keyboard_event = self.on_keyboard
-        
+        return self.layout_template(is_second_page=False)
+
+    def get_settings_view(self, on_back):
+        if self.page:
+            self.page.on_keyboard_event = self.on_keyboard
+        return self.layout_template(is_second_page=True, on_back=on_back)
+
+    def layout_template(self, is_second_page=False, on_back=None):
+        # Tlačítka s akcí lambda _: None nebudou dělat vůbec nic
+        extra_row = ft.Row(
+            spacing=10, 
+            controls=[
+                self.build_button("BMI", color="grey700", action=lambda _: None), 
+                self.build_button("GRAF", color="grey700", action=lambda _: None), 
+                self.build_button("SCIFI", color="grey700", action=lambda _: None)
+            ]
+        )
+
         return ft.Column(
             expand=True,
             spacing=15,
@@ -114,25 +131,15 @@ class CalculatorUI:
                                 ft.Row(spacing=10, controls=[self.build_button("/", color="grey700"), self.build_button("root", color="grey700"), self.build_button("(", color="grey700")]),
                                 ft.Row(spacing=10, controls=[self.build_button("*", color="grey700"), self.build_button("^", color="grey700"), self.build_button(")", color="grey700")]),
                                 ft.Row(spacing=10, controls=[self.build_button("-", color="grey700"), self.build_button("log", color="grey700"), self.build_button(".", color="grey700")]),
-                                ft.Row(spacing=10, controls=[self.build_button("+", color="grey700"), self.build_button("!", color="grey700"), self.build_button("Verze 2.0", color="blue_grey_700", action=lambda _: self.on_go_to_settings())]),
+                                ft.Row(spacing=10, controls=[
+                                    self.build_button("+", color="grey700"), 
+                                    self.build_button("!", color="grey700"), 
+                                    self.build_button("Zpět" if is_second_page else "Verze 2.0", color="blue_grey_700", action=lambda _: on_back() if is_second_page else self.on_go_to_settings())
+                                ]),
+                                extra_row if is_second_page else ft.Container()
                             ]
                         )
                     ]
                 ),
-            ]
-        )
-
-    def get_settings_view(self, on_back):
-        if self.page:
-            self.page.on_keyboard_event = None
-        return ft.Column(
-            expand=True, 
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER, 
-            alignment=ft.MainAxisAlignment.CENTER, 
-            controls=[
-                ft.Text("Projekt IVS", size=30, weight="bold", color="white"), 
-                ft.Text("verze 2.0", size=16, color="grey"), 
-                ft.Divider(height=20, color="transparent"), 
-                ft.ElevatedButton("Zpět ke kalkulačce", on_click=lambda _: on_back())
             ]
         )

@@ -69,11 +69,12 @@ class CalculatorUI:
             return
 
         else:
-            if value in operators:
+            strict_operators = ["+", "-", "*", "/", "^", "root", "log", "!"]
+            if value in strict_operators:
                 if self.current_formula:
-                    if self.current_formula.endswith(tuple(operators)):
+                    if self.current_formula.endswith(tuple(strict_operators)):
                         self.current_formula = self.current_formula[:-1]
-                elif value not in ["-", "log", "("]:
+                elif value not in ["-", "log"]:
                     return
             
             if self.current_formula == "" and (value.isdigit() or value == "(" or value == "log"):

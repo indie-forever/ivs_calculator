@@ -6,7 +6,6 @@ def main(page: ft.Page):
     ctrl = CalculatorController()
     ui = CalculatorUI(page)
     
-    # Nastavení okna
     page.title = "IVS Kalkulačka"
     page.theme_mode = ft.ThemeMode.DARK 
     page.padding = 10
@@ -16,7 +15,7 @@ def main(page: ft.Page):
 
     def handle_click(formula):
         ctrl.expression = formula 
-        ctrl.handle_button("=") # Vyvoláme výpočet
+        ctrl.handle_button("=")
         ui.display.value = ctrl.get_display_text()
         ui.current_formula = ui.display.value 
         page.update()
@@ -30,8 +29,13 @@ def main(page: ft.Page):
         page.clean()
         page.add(ui.get_settings_view(on_back=show_calc))
 
+    def show_graph():
+        page.clean()
+        page.add(ui.get_graph_view(on_back=show_settings))
+
     ui.on_btn_click = handle_click 
     ui.on_go_to_settings = show_settings
+    ui.on_go_to_graph = show_graph
 
     show_calc()
 

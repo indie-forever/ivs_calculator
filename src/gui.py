@@ -8,6 +8,7 @@ class CalculatorUI:
         self.is_result = False 
         self.on_btn_click = None
         self.on_go_to_settings = None
+        self.on_go_to_graph = None
 
     def on_keyboard(self, e: ft.KeyboardEvent):
         class FakeEvent:
@@ -95,13 +96,25 @@ class CalculatorUI:
             self.page.on_keyboard_event = self.on_keyboard
         return self.layout_template(is_second_page=True, on_back=on_back)
 
+    def get_graph_view(self, on_back):
+        if self.page:
+            self.page.on_keyboard_event = None
+        return ft.Column(
+            expand=True,
+            alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            controls=[
+                ft.Text("Stránka pro Graf", size=30, color="white"),
+                ft.ElevatedButton("Zpět", on_click=lambda _: on_back())
+            ]
+        )
+
     def layout_template(self, is_second_page=False, on_back=None):
-        # Tlačítka s akcí lambda _: None nebudou dělat vůbec nic
         extra_row = ft.Row(
             spacing=10, 
             controls=[
                 self.build_button("BMI", color="grey700", action=lambda _: None), 
-                self.build_button("GRAF", color="grey700", action=lambda _: None), 
+                self.build_button("GRAF", color="grey700", action=lambda _: self.on_go_to_graph() if self.on_go_to_graph else None), 
                 self.build_button("SCIFI", color="grey700", action=lambda _: None)
             ]
         )

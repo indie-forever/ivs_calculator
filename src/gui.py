@@ -42,7 +42,6 @@ class CalculatorUI:
     def internal_handle_click(self, e):
         value = e.control.data
         operators = ["+", "-", "*", "/", "^", "root", "log", "!", "(", ")"]
-
         if self.display.value == "Error":
             self.current_formula = ""
             self.display.value = "0"
@@ -50,25 +49,21 @@ class CalculatorUI:
             if value in operators:
                 if self.page: self.page.update()
                 return
-
         if self.is_result:
             if value.isdigit() or value == "(":
                 self.current_formula = ""
             elif value in operators:
                 self.current_formula = self.display.value
             self.is_result = False
-
         if value == "C":
             self.current_formula = ""
             self.display.value = "0"
             self.is_result = False
-        
         elif value == "=":
             if self.on_btn_click:
                 self.on_btn_click(self.current_formula)
                 self.is_result = True
             return
-
         else:
             strict_operators = ["+", "-", "*", "/", "^", "root", "log", "!"]
             if value in strict_operators:
@@ -77,13 +72,11 @@ class CalculatorUI:
                         self.current_formula = self.current_formula[:-1]
                 elif value not in ["-", "log", "("]:
                     return
-            
             if self.current_formula == "" and (value.isdigit() or value == "(" or value == "log"):
                 self.current_formula = str(value)
             else:
                 self.current_formula += str(value)
             self.display.value = self.current_formula
-        
         if self.page: self.page.update()
 
     def get_view(self):
@@ -99,13 +92,33 @@ class CalculatorUI:
     def get_graph_view(self, on_back):
         if self.page:
             self.page.on_keyboard_event = None
+            axes = ft.Stack([
+            ft.Container(bgcolor="white30", width=250, height=1, top=125, left=25),
+            ft.Container(bgcolor="white30", width=1, height=250, top=25, left=150),
+            ft.Container(content=ft.Text("Y", color="white", weight="bold", size=12), top=5, left=155),
+            ft.Container(content=ft.Text("X", color="white", weight="bold", size=12), top=120, left=275),
+            ft.Container(content=ft.Text("0", color="white38", size=10), top=127, left=138),
+        ], width=300, height=300)
+
         return ft.Column(
             expand=True,
-            alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             controls=[
-                ft.Text("Stránka pro Graf", size=30, color="white"),
-                ft.ElevatedButton("Zpět", on_click=lambda _: on_back())
+                ft.Text("Graf", size=25, weight="bold", color="white"),
+                ft.Container(
+                    content=axes,
+                    bgcolor="black",
+                    border_radius=10,
+                    width=300,
+                    height=300,
+                    margin=20,
+                    border=ft.border.all(1, "grey800")
+                ),
+                ft.ElevatedButton(
+                    "Zpět", 
+                    on_click=lambda _: on_back(), 
+                    style=ft.ButtonStyle(color="white", bgcolor="blue_grey_700")
+                )
             ]
         )
 

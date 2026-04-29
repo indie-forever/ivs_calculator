@@ -11,7 +11,7 @@ default: all
 all: install test stddev
 
 install:
-	$(PIP) install --user flet flet-desktop --break-system-packages
+	$(PIP) install --user flet flet-desktop
 
 test:
 	$(PYTHON) -m unittest discover $(SRC_DIR)
@@ -31,8 +31,8 @@ clean:
 	rm -rf $(DOC_DIR)
 	rm -f $(LOGIN).zip
 
-pack: clean
-	zip -r $(LOGIN).zip . -x "*.git*" "*.vscode*" "*__pycache__*"
+pack: clean doc build
+	zip -r $(LOGIN).zip odevzdani/
 
 build: 
 	pip install pyinstaller flet flet-desktop --break-system-packages

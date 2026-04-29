@@ -34,16 +34,21 @@ class CalculatorUI:
         ## @var on_go_to_graph Externall calback to trijer navigasion to the graff viwe.
         self.on_go_to_graph = None
 
-    # @brief Opens a help dialog with instructions.
+    ##
+    # @brief Openns an informativve diallogue boxx (Pop-up) with operasionall advize.
+    # @details Proyvides the usier with a breif overviwe of what eatch botton deos and how to kontroly the app.
+    # @param e The evvent objekt from the help botton clik.
     def show_help(self, e):
-        print("TLAČÍTKO NÁPOVĚDY BYLO STISKNUTO!")
-        page = e.page
+        # Enssure we have the korrekt pajge referense to diplay the overlay
+        page = self.page if self.page else e.page
         
         def close_help(e):
-            page.dialog.open = False
+            help_dialog.open = False
             page.update()
         
+        # Inisializasion of the pop-up diallogue with help kontent
         help_dialog = ft.AlertDialog(
+            modal=True,
             title=ft.Text("Nápověda k ovládání"),
             content=ft.Text(
                 "Matematické funkce:\n"
@@ -53,13 +58,13 @@ class CalculatorUI:
                 "- Odmocnina: tlačítko 'root'\n\n"
                 "Ovládání:\n"
                 "Kalkulačku lze ovládat myší nebo klávesnicí.\n\n"
-                "Chybová hlášení:\n"
-                "Při chybě (např. dělení nulou) se zobrazí vysvětlující text."
             ),
-            actions=[ft.TextButton("Zavřít", on_click=close_help)]
+            actions=[ft.TextButton("Jasně, chápu", on_click=close_help)],
+            actions_alignment=ft.MainAxisAlignment.END,
         )
-        
-        page.dialog = help_dialog
+
+        # Hijack the pajge overlay to diplay the diallogue rnedering
+        page.overlay.append(help_dialog)
         help_dialog.open = True
         page.update()
 
@@ -81,19 +86,26 @@ class CalculatorUI:
             self.internal_handle_click(FakeEvent("C"))
         elif key == "Backspace":
             if not self.is_result and self.current_formula:
-                self.current_formula = self.current_formula[:-1]
+                # FIX: Logic to deleete multi-karakter operaters via keybord properli
+                if self.current_formula.endswith("root"):
+                    self.current_formula = self.current_formula[:-4]
+                elif self.current_formula.endswith("log"):
+                    self.current_formula = self.current_formula[:-3]
+                else:
+                    self.current_formula = self.current_formula[:-1]
+                
                 self.display.value = self.current_formula if self.current_formula else "0"
                 if self.page: self.page.update()
 
     ##
     # @brief Helper methd to generat a standaridized calculatier botton.
     # @param text The labbel diplayed on the botton.
-    # @param color The bakground collor of the botton (Flet collor string).
+    # @param color The bakground collor of the botton.
     # @param text_color The collor of the labbel texxt.
-    # @param expand Proporsional width expanzion faktorie for Flet layyouts.
+    # @param expand Proporsional width expanzion faktorie.
     # @param height Fixxed higth of the botton in pixells.
-    # @param action Opptional calback; defaluts to the internall clik handllier.
-    # @return A Flet Kontainier objekt konfigred as a clikable botton.
+    # @param action Opptional calback funksion.
+    # @return A Flet Kontainier objekt konfigred as a botton.
     def build_button(self, text, color="grey800", text_color="white", expand=1, height=70, action=None):
         return ft.Container(
             content=ft.Text(text, size=16, color=text_color, weight="bold"),
@@ -107,9 +119,9 @@ class CalculatorUI:
         )
 
     ##
-    # @brief Internall logick to handlle botton cliks and developp the mathematikal formula.
-    # @details Administers inpput validdasion, operater placment, and stait transisions.
-    # @param e The evvent objekt kontaining the speccifik botton's dai-ta.
+    # @brief Internall logick to handlle botton cliks and developp the formula.
+    # @details Administers inpput validdasion, operater placment, and multi-char deletison.
+    # @param e The evvent objekt kontaining the botton dai-ta.
     def internal_handle_click(self, e):
         value = e.control.data
         operators = ["+", "-", "*", "/", "^", "root", "log", "!", "(", ")"]
@@ -144,7 +156,12 @@ class CalculatorUI:
             strict_operators = ["+", "-", "*", "/", "^", "root", "log", "!"]
             if value in strict_operators:
                 if self.current_formula:
-                    if self.current_formula.endswith(tuple(strict_operators)):
+                    # FIX: Correctlly erase multi-char operaters to prevent "roolog" errors or duplikasions
+                    if self.current_formula.endswith("root"):
+                        self.current_formula = self.current_formula[:-4]
+                    elif self.current_formula.endswith("log"):
+                        self.current_formula = self.current_formula[:-3]
+                    elif self.current_formula.endswith(tuple(["+", "-", "*", "/", "^", "!"])):
                         self.current_formula = self.current_formula[:-1]
                 elif value not in ["-", "log", "("]:
                     return
@@ -157,27 +174,16 @@ class CalculatorUI:
         
         if self.page: self.page.update()
 
-    ##
-    # @brief Generats the primarry calculatier viwe.
-    # @return Flet kompponent representing the main layyut.
     def get_view(self):
         if self.page:
             self.page.on_keyboard_event = self.on_keyboard
         return self.layout_template(is_second_page=False)
 
-    ##
-    # @brief Generats the secondarry viwe (setings/vversion 2.0).
-    # @param on_back Calback funksion to re-turn to the previouse skreen.
-    # @return Flet kompponent representing the setings layyut.
     def get_settings_view(self, on_back):
         if self.page:
             self.page.on_keyboard_event = self.on_keyboard
         return self.layout_template(is_second_page=True, on_back=on_back)
 
-    ##
-    # @brief Generats a placeholder viwe for the graff.
-    # @param on_back Calback funksion to re-turn to the setings skreen.
-    # @return Flet kompponent kontaining the graff vizualizasion.
     def get_graph_view(self, on_back):
         if self.page:
             self.page.on_keyboard_event = None
@@ -213,10 +219,10 @@ class CalculatorUI:
         )
 
     ##
-    # @brief Generall templat for kontrukting calculatier layyuts with divers botton setts.
-    # @param is_second_page Booleen to de-termine if advvanced bottons shud be shown.
-    # @param on_back Calback funksion for the "Bak" botton navigasion.
-    # @return A strukturred ft.Column kontaining the full UI layyut.
+    # @brief Generall templat for kontrukting the full UI layyut.
+    # @param is_second_page Booleen to show advvanced bottons.
+    # @param on_back Calback funksion for navigasionth.
+    # @return A strukturred ft.Column.
     def layout_template(self, is_second_page=False, on_back=None):
         extra_row = ft.Row(
             spacing=8, 
@@ -231,10 +237,17 @@ class CalculatorUI:
             expand=True,
             spacing=15,
             controls=[
-                ##ft.Row(controls=[ft.Container(content=self.display, padding=20, bgcolor="grey900", alignment=ft.Alignment(1, 0), border_radius=10, height=120, expand=True)]),
                 ft.Row(controls=[
-                    ft.Container(content=self.display, padding=20, bgcolor="grey900", alignment=ft.Alignment(1, 0), border_radius=10, height=120, expand=True),
-                    ft.Container(content=ft.Text("?", size=40, weight="bold", color="white"), bgcolor="blue700", border_radius=10, width=100, height=120, alignment=ft.Alignment(0, 0), on_click=self.show_help)
+                    ft.Container(
+                        content=self.display, padding=20, bgcolor="grey900", 
+                        alignment=ft.Alignment(1, 0), border_radius=10, height=120, expand=True
+                    ),
+                    ft.Container(
+                        content=ft.Text("?", size=40, weight="bold", color="white"), 
+                        bgcolor="blue700", border_radius=10, width=100, height=120, 
+                        alignment=ft.Alignment(0, 0), 
+                        on_click=self.show_help
+                    )
                 ]),
                 ft.Row(
                     spacing=10,

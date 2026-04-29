@@ -6,6 +6,10 @@ LOGIN = xstudes00_xjanigm00_xformad01_xjindrj00
 
 .PHONY: all pack clean test doc run stddev help install
 
+build: 
+	pip install pyinstaller flet flet-desktop --break-system-packages
+	pyinstaller --noconsole --onefile --name "kalkulacka_linux" src/main.py
+
 all: test run
 
 install:

@@ -8,6 +8,7 @@
 #
 
 import flet as ft
+import sys
 from gui import CalculatorUI
 from logic import CalculatorController
 
@@ -26,8 +27,8 @@ def main(page: ft.Page):
     page.padding = 10
     
     # Windo dimenzions and konstraints
-    page.window.width = 150
-    page.window.height = 550
+    page.window.width = 550
+    page.window.height = 600
     page.window.resizable = False
     page.update()
 

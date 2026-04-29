@@ -4,16 +4,14 @@ SRC_DIR = src
 DOC_DIR = doc
 LOGIN = xstudes00_xjanigm00_xformad01_xjindrj00
 
-.PHONY: all pack clean test doc run stddev help install
+.PHONY: all pack clean test doc run stddev help install default
 
-build: 
-	pip install pyinstaller flet flet-desktop --break-system-packages
-	pyinstaller --noconsole --onefile --name "kalkulacka_linux" src/main.py
+default: all
 
-all: test run
+all: install test stddev
 
 install:
-	$(PIP) install --user flet
+	$(PIP) install --user flet flet-desktop --break-system-packages
 
 test:
 	$(PYTHON) -m unittest discover $(SRC_DIR)
@@ -22,7 +20,7 @@ run:
 	$(PYTHON) $(SRC_DIR)/main.py
 
 stddev:
-	$(PYTHON) $(SRC_DIR)/stddev
+	echo "1 2 3 4 5" | $(PYTHON) $(SRC_DIR)/stddev
 
 doc:
 	doxygen Doxyfile
@@ -36,6 +34,10 @@ clean:
 pack: clean
 	zip -r $(LOGIN).zip . -x "*.git*" "*.vscode*" "*__pycache__*"
 
+build: 
+	pip install pyinstaller flet flet-desktop --break-system-packages
+	pyinstaller --noconsole --onefile --name "kalkulacka_linux" src/main.py
+
 help:
 	@echo "all    : Run tests and then the application"
 	@echo "install: Install required GUI libraries"
@@ -45,3 +47,4 @@ help:
 	@echo "doc    : Generate documentation using Doxygen"
 	@echo "clean  : Remove temporary files and archives"
 	@echo "pack   : Create a zip archive $(LOGIN).zip for submission"
+	@echo "build  : Run the installator"

@@ -73,5 +73,5 @@ def main(page: ft.Page):
 # @brief Entri point for the skript exekusionth.
 # @details Invoakes the ft.app funksion to lounch the Flet aplikasion with the main tarrget.
 if __name__ == "__main__":
-    ft.app(target=main)
+    ft.app(target=main, view=ft.AppView.WEB_BROWSER)
     ##ft.app(target=main, view=ft.AppView.WEB_BROWSER)

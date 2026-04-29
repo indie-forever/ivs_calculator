@@ -50,8 +50,7 @@ Zabalí celý repozitář do `.zip` archivu ve formátu požadovaném pro finál
 Odstraní všechny dočasné soubory, meziprodukty překladu, vygenerovanou dokumentaci a instalační archivy.
 
 ## Struktura repozitáře
-* `src/` - Zdrojové kódy aplikace, matematické knihovny a grafického rozhraní.
-         - Skripty s automatizovanými testy matematické knihovny.
+* `src/` - Zdrojové kódy aplikace, matematické knihovny a grafického rozhraní. Obsahuje i Skripty s automatizovanými testy matematické knihovny.
 * `doc/` - Uživatelský manuál a technická dokumentace.
 * `install/` - instalační soubor pro operační systém windows
 * `Makefile` - Skript definující cíle pro sestavení, spuštění a testování projektu.

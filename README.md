@@ -11,7 +11,6 @@ Tento projekt byl vytvořen jako druhý projekt do předmětu IVS (Praktické as
 | **Simona Studená** | `xstudes00` (`simisekstudena-bit`) | Matematická logika, makefile, testy mat. logiky |
 | **Josef Jindra** | `xjindrj00` (`pepekherni-ctrl`) | GUI bugfix, nápověda, instalátor, dokumentace |
 
-
 ## Technologie
 * **Jazyk:** Python 3
 * **GUI Framework:** Flet

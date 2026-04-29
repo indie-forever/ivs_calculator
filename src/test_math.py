@@ -80,6 +80,7 @@ class TestMathBasic(unittest.TestCase):
         self.assertAlmostEqual(MathLib.root(9, 2), 3.0)
         self.assertAlmostEqual(MathLib.root(27, 3), 3.0)
         self.assertAlmostEqual(MathLib.root(0, 2), 0.0)
+        self.assertAlmostEqual(MathLib.root(-8, 3), -2.0)
         # Invalid inputs should return None.
         self.assertIsNone(MathLib.root(-4, 2))
         self.assertIsNone(MathLib.root(15, 0))
@@ -91,6 +92,7 @@ class TestMathBasic(unittest.TestCase):
         self.assertAlmostEqual(MathLib.log(10, 100), 2.0)
         self.assertAlmostEqual(MathLib.log(2, 8), 3.0)
         self.assertAlmostEqual(MathLib.log(5, 25), 2.0)
+        self.assertAlmostEqual(MathLib.log(0.5, 2), -1)
         # Invalid inputs should return None.
         self.assertIsNone(MathLib.log(15, -5))
         self.assertIsNone(MathLib.log(15, 0))

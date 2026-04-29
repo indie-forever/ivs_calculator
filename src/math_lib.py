@@ -115,10 +115,13 @@ class MathLib:
         @param n The degree of the root (must be positive).
         @return The n-th root of A, or None if parameters are invalid.
         """
-        if n==0 :return 0 ;
-        if n < 0: sys.stderr.write("Error: Root degree must be positive\n"); return None
+        if n==0 : sys.stderr.write("Error: Root degree cannot be zero\n"); return None
+        if n < 0: sys.stderr.write("Error: Root degree must not be negative\n"); return None
         if A < 0 and n % 2 == 0: sys.stderr.write("Error: Even root of negative number\n"); return None
-        vysledok = math.pow(A, 1/n)
+        if A < 0:
+            vysledok = -math.pow(abs(A), 1/n)
+        else:
+            vysledok = math.pow(A, 1/n)
         return vysledok
 
     @staticmethod

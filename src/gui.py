@@ -68,42 +68,51 @@ class CalculatorUI:
         page.update()
 
     ##
-    # @brief Handles physical keyboard input events including modifiers.
-    # @details Maps keys and combinations (Shift/Alt) to calculator functions.
-    # @param e The KeyboardEvent object containing key and modifier data.
+    # @brief Handles physical keyboard input events safely.
+    # @details Maps keys to calculator functions without continuous deletion support.
+    # @param e The KeyboardEvent object.
     def on_keyboard(self, e: ft.KeyboardEvent):
+        # Basic safety check to prevent crashes on empty events
+        if e is None or getattr(e, "key", None) is None:
+            return
+
         class FakeEvent:
             def __init__(self, data):
                 self.control = type('obj', (object,), {'data': data})
         
-        key = e.key
-        target_char = None
+        # We only process the keydown event type
+        event_type = getattr(e, "type", "keydown")
+        if event_type != "keydown" and event_type != "":
+            return
 
-        # Logic to catch brackets across different keyboard layouts
-        if e.shift:
+        key = e.key
+        shift_pressed = getattr(e, "shift", False)
+        alt_pressed = getattr(e, "alt", False)
+
+        # 1. SPECIAL CHARACTER MAPPING (Brackets, Power, Multiply)
+        target_char = None
+        
+        if shift_pressed:
             if key == "9": target_char = "("
             elif key == "0": target_char = ")"
-        elif e.alt:
+            elif key == "8" or key == "*": target_char = "*"
+            elif key == "6" or key == "^": target_char = "^"
+        elif alt_pressed:
             if key == "8": target_char = "("
             elif key == "9": target_char = ")"
-        elif key == "(" or key == ")":
+        
+        # Direct bracket check if not handled by modifiers
+        if not target_char and (key == "(" or key == ")"):
             target_char = key
 
-        # If a bracket was detected, process it and stop further execution
+        # If we identified a special character, process it
         if target_char:
             self.internal_handle_click(FakeEvent(target_char))
             return
 
-        # General keyboard mapping
-        if key in "0123456789+-*/^.,!":
-            self.internal_handle_click(FakeEvent(key.replace(",", ".")))
-        elif key == "Enter":
-            self.internal_handle_click(FakeEvent("="))
-        elif key == "Escape":
-            self.internal_handle_click(FakeEvent("C"))
-        elif key == "Backspace":
+        # 2. STANDARD ACTIONS (Numbers, Basic Operators, Backspace)
+        if key == "Backspace":
             if not self.is_result and self.current_formula:
-                # Proper multi-character deletion logic
                 if self.current_formula.endswith("root"):
                     self.current_formula = self.current_formula[:-4]
                 elif self.current_formula.endswith("log"):
@@ -113,6 +122,15 @@ class CalculatorUI:
                 
                 self.display.value = self.current_formula if self.current_formula else "0"
                 if self.page: self.page.update()
+        
+        elif key in "0123456789+-*/^.,!":
+            self.internal_handle_click(FakeEvent(key.replace(",", ".")))
+        
+        elif key == "Enter":
+            self.internal_handle_click(FakeEvent("="))
+        
+        elif key == "Escape":
+            self.internal_handle_click(FakeEvent("C"))
     ##
     # @brief Helper method to create a standardized UI button.
     # @param text Label displayed on the button.

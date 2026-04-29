@@ -68,16 +68,34 @@ class CalculatorUI:
         page.update()
 
     ##
-    # @brief Processes physical keyboard inputs.
-    # @details Maps keys to calculator actions and updates the current formula.
-    # @param e The KeyboardEvent object from Flet.
+    # @brief Handles physical keyboard input events including modifiers.
+    # @details Maps keys and combinations (Shift/Alt) to calculator functions.
+    # @param e The KeyboardEvent object containing key and modifier data.
     def on_keyboard(self, e: ft.KeyboardEvent):
         class FakeEvent:
             def __init__(self, data):
                 self.control = type('obj', (object,), {'data': data})
         
         key = e.key
-        if key in "0123456789+-*/^().,!":
+        target_char = None
+
+        # Logic to catch brackets across different keyboard layouts
+        if e.shift:
+            if key == "9": target_char = "("
+            elif key == "0": target_char = ")"
+        elif e.alt:
+            if key == "8": target_char = "("
+            elif key == "9": target_char = ")"
+        elif key == "(" or key == ")":
+            target_char = key
+
+        # If a bracket was detected, process it and stop further execution
+        if target_char:
+            self.internal_handle_click(FakeEvent(target_char))
+            return
+
+        # General keyboard mapping
+        if key in "0123456789+-*/^.,!":
             self.internal_handle_click(FakeEvent(key.replace(",", ".")))
         elif key == "Enter":
             self.internal_handle_click(FakeEvent("="))
@@ -85,7 +103,7 @@ class CalculatorUI:
             self.internal_handle_click(FakeEvent("C"))
         elif key == "Backspace":
             if not self.is_result and self.current_formula:
-                # Logic to delete multi-character operators properly
+                # Proper multi-character deletion logic
                 if self.current_formula.endswith("root"):
                     self.current_formula = self.current_formula[:-4]
                 elif self.current_formula.endswith("log"):
@@ -95,7 +113,6 @@ class CalculatorUI:
                 
                 self.display.value = self.current_formula if self.current_formula else "0"
                 if self.page: self.page.update()
-
     ##
     # @brief Helper method to create a standardized UI button.
     # @param text Label displayed on the button.

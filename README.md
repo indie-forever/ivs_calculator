@@ -6,9 +6,9 @@ Tento projekt byl vytvořen jako druhý projekt do předmětu IVS (Praktické as
 
 | Jméno a příjmení | Login (GitHub) | Role v projektu / Co implementoval |
 | :--- | :--- | :--- |
-| **Marek Janiga** | `xjanigm00` (`hajtik1`) | Matematická knihovna, testy knihoven |
+| **Marek Janiga** | `xjanigm00` (`hajtik1`) | Matematická knihovna, profiling |
 | **Daniel Forman** | `xformad01` (`danielf40k`) | GUI aplikace (Flet), Main |
-| **Simona Studená** | `xstudes00` (`simisekstudena-bit`) | Matematická logika, makefile, testy mat. logiky |
+| **Simona Studená** | `xstudes00` (`simisekstudena-bit`) | Matematická logika(parser), makefile, testy|
 | **Josef Jindra** | `xjindrj00` (`pepekherni-ctrl`) | GUI bugfix, nápověda, instalátor, dokumentace |
 
 ## Technologie
@@ -23,6 +23,9 @@ Projekt využívá nástroj `make` pro automatizaci běžných úloh. V kořenov
 
 ### `make install`
 Nainstaluje všechny potřebné závislosti (především framework Flet) nezbytné pro běh aplikace. 
+
+### `make build`
+Vytvoří spustitelnou verzi kalkulačky pro Linux.
 
 ### `make run`
 Spustí samotnou aplikaci kalkulačky s grafickým rozhraním.
@@ -41,6 +44,6 @@ Odstraní všechny dočasné soubory, meziprodukty překladu, vygenerovanou doku
 
 ## Struktura repozitáře
 * `src/` - Zdrojové kódy aplikace, matematické knihovny a grafického rozhraní.
-* `tests/` - Skripty s automatizovanými testy matematické knihovny.
+         - Skripty s automatizovanými testy matematické knihovny.
 * `doc/` - Uživatelský manuál a technická dokumentace.
 * `Makefile` - Skript definující cíle pro sestavení, spuštění a testování projektu.

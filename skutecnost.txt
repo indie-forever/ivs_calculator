@@ -21,4 +21,7 @@ Zvolene komunikacne kanaly:
 
 Zvoleny system pre spravu verzii a hosting:
     Github -        Fungoval vyborne
+<<<<<<< HEAD
     URL: https://github.com/simisekstudena-bit/ivs_calculator.git
+=======
+>>>>>>> 6f9850d03b5f91bd7ffa14a5e022d96d0a5e786e

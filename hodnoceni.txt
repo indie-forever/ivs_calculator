@@ -1,0 +1,4 @@
+| Marek Janiga |xjanigm00 (hajtik1) | Matematická knihovna, profiling |  100%
+| Daniel Forman |xformad01 (danielf40k) | GUI aplikace (Flet), Main |  100%
+| Simona Studená |xstudes00 (simisekstudena-bit) | Matematická logika(parser), makefile, testy|  100%
+| Josef Jindra |xjindrj00 (pepekherni-ctrl) | GUI bugfix, nápověda, instalátor, dokumentace |  100%

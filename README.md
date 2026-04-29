@@ -51,7 +51,7 @@ Odstraní všechny dočasné soubory, meziprodukty překladu, vygenerovanou doku
 
 ## Struktura repozitáře
 * `src/` - Zdrojové kódy aplikace, matematické knihovny a grafického rozhraní.
-*        - Skripty s automatizovanými testy matematické knihovny.
+         - Skripty s automatizovanými testy matematické knihovny.
 * `doc/` - Uživatelský manuál a technická dokumentace.
 * `install/` - instalační soubor pro operační systém windows
 * `Makefile` - Skript definující cíle pro sestavení, spuštění a testování projektu.

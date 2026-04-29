@@ -1,14 +1,6 @@
 #!/usr/bin/env python3
 import sys
 import os
-
-
-# Add the 'src' directory to the system path to allow importing MathLib
-current_dir = os.path.dirname(os.path.abspath(__file__))
-src_path = os.path.abspath(os.path.join(current_dir, "..", "src"))
-if src_path not in sys.path:
-    sys.path.append(src_path)
-
 from math_lib import MathLib
 
 # Initialize accumulators for statistical calculations

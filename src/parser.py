@@ -43,7 +43,7 @@ class ExpressionParser:
             i = 0
             while i < len(tokens):
                 # If '-' is the first symbol or right after parentheses or an operator, the number after is negative.
-                if tokens[i] == '-' and (i == 0 or tokens[i-1] in "+-*/(^logroot"):
+                if tokens[i] == '-' and (i == 0 or tokens[i-1] in "+-*/(^" or tokens[i-1] == "log" or tokens[i-1] == "root"):
                     if i + 1 < len(tokens):
                         processed_tokens.append("-" + tokens[i+1])
                         i += 2

@@ -93,8 +93,10 @@ class MathLib:
         """
         if exponent % 1 != 0: sys.stderr.write("Error: Exponent must be an integer\n"); return None
         
+        if exponent == 0 and base == 0: sys.stderr.write("Error: Undefined value"); return None
+
         if exponent == 0: return 1
-        
+
         is_negative = exponent < 0
         abs_exp = int(abs(exponent))
         

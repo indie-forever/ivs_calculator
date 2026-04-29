@@ -72,6 +72,7 @@ class TestMathBasic(unittest.TestCase):
         self.assertEqual(MathLib.pow(10, -2), 0.01)
         # Invalid input for this library's specific implementation
         self.assertIsNone(MathLib.pow(4, 0.5))
+        self.assertIsNone(MathLib.pow(0,0))
 
     ##
     # @brief Test the root operation using almost equal for float precision.

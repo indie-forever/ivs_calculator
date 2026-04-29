@@ -17,33 +17,41 @@ Tento projekt byl vytvořen jako druhý projekt do předmětu IVS (Praktické as
 * **Testování:** `unittest` / `pytest`
 * **Sestavení a správa:** GNU Make
 
-## Sestavení a spuštění (Návod k použití)
+## Instalace a spuštění (Návod k použití)
 
+### Pro uživatele Windows
+Projekt obsahuje předpřipravený grafický instalátor.
+1. Přejděte do složky `install/`.
+2. Spusťte soubor `IVS_calculator_setup.exe` a postupujte podle instrukcí průvodce.
+3. Aplikaci lze poté spustit přímo z plochy nebo z nabídky Start.
+
+### Pro uživatele Linuxu (a vývojáře)
 Projekt využívá nástroj `make` pro automatizaci běžných úloh. V kořenovém adresáři repozitáře lze spustit následující příkazy:
 
-### `make install`
+**`make install`**
 Nainstaluje všechny potřebné závislosti (především framework Flet) nezbytné pro běh aplikace. 
 
-### `make build`
+**`make build`**
 Vytvoří spustitelnou verzi kalkulačky pro Linux.
 
-### `make run`
+**`make run`**
 Spustí samotnou aplikaci kalkulačky s grafickým rozhraním.
 
-### `make test`
+**`make test`**
 Spustí sadu automatizovaných testů pro ověření správné funkčnosti matematické knihovny.
 
-### `make doc`
+**`make doc`**
 Vygeneruje vývojářskou dokumentaci zdrojového kódu (Doxygen) do složky `doc/`.
 
-### `make pack`
+**`make pack`**
 Zabalí celý repozitář do `.zip` archivu ve formátu požadovaném pro finální odevzdání projektu.
 
-### `make clean`
+**`make clean`**
 Odstraní všechny dočasné soubory, meziprodukty překladu, vygenerovanou dokumentaci a instalační archivy.
 
 ## Struktura repozitáře
 * `src/` - Zdrojové kódy aplikace, matematické knihovny a grafického rozhraní.
-         - Skripty s automatizovanými testy matematické knihovny.
+*        - Skripty s automatizovanými testy matematické knihovny.
 * `doc/` - Uživatelský manuál a technická dokumentace.
+* `install/` - instalační soubor pro operační systém windows
 * `Makefile` - Skript definující cíle pro sestavení, spuštění a testování projektu.

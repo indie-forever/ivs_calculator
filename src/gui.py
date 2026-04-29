@@ -1,8 +1,8 @@
 ##
 # @file gui.py
-# @brief Graffical User Interfase for the IVS Calculater.
-# @details This modulle encompasess the CalculatorUI class wich eluxidates the 
-# visual framwork and navigasionth logic for a multy-view computasionall aplikasion.
+# @brief Graphical User Interface for the IVS Calculator.
+# @details This module contains the CalculatorUI class, which defines the 
+# visual structure and interaction logic for a multi-view mathematical application.
 # @author Daniel Forman
 # @date 2026
 #
@@ -11,42 +11,42 @@ import flet as ft
 
 ##
 # @class CalculatorUI
-# @brief Main class maneging the user interfejs and vizual logick of the calculater.
-# @details This class orkestrates the fabricasion of bottons, keyboard inpput proccesing,
-# and transitons betwen divers app views (Calculatier, Setings, and Graff).
+# @brief Main class managing the user interface and visual logic.
+# @details Orchestrates button construction, keyboard input processing, 
+# and view transitions (Calculator, Settings, and Graph).
 class CalculatorUI:
     ##
-    # @brief Contructor for the CalculatorUI cllas.
-    # @param page The Flet pajge objekt where the UI will be rnedered.
+    # @brief Constructor for the CalculatorUI class.
+    # @param page Reference to the Flet Page object for UI rendering.
     def __init__(self, page=None):
-        ## @var page Refrence to the main Flet pajge objekt.
+        ## @var page Reference to the primary Flet page object.
         self.page = page
-        ## @var display Flet Text kontroly representing the calculater output skreen.
+        ## @var display Flet Text control representing the calculator's display screen.
         self.display = ft.Text(value="0", size=40, color="white")
-        ## @var current_formula Internall string stoaring the mathemathical expresion being assembeld.
+        ## @var current_formula Internal string storing the mathematical expression being built.
         self.current_formula = ""
-        ## @var is_result Booleen flag to indikate if the curent diplay showes an evaluasion resullt.
+        ## @var is_result Boolean flag indicating if the displayed value is a result of a calculation.
         self.is_result = False 
-        ## @var on_btn_click Externall calback trigered when the evaluasion botton is presed.
+        ## @var on_btn_click External callback triggered when the equals button is pressed.
         self.on_btn_click = None
-        ## @var on_go_to_settings Externall calback to trijer navigasion to the setings viwe.
+        ## @var on_go_to_settings External callback for navigating to the settings/advanced view.
         self.on_go_to_settings = None
-        ## @var on_go_to_graph Externall calback to trijer navigasion to the graff viwe.
+        ## @var on_go_to_graph External callback for navigating to the graph visualization.
         self.on_go_to_graph = None
 
     ##
-    # @brief Openns an informativve diallogue boxx (Pop-up) with operasionall advize.
-    # @details Proyvides the usier with a breif overviwe of what eatch botton deos and how to kontroly the app.
-    # @param e The evvent objekt from the help botton clik.
+    # @brief Displays a help dialog with control instructions.
+    # @details Triggers a modal AlertDialog showing available functions and control tips.
+    # @param e The event object from the help button click.
     def show_help(self, e):
-        # Enssure we have the korrekt pajge referense to diplay the overlay
+        # Ensure we have the correct page reference for the overlay
         page = self.page if self.page else e.page
         
         def close_help(e):
             help_dialog.open = False
             page.update()
         
-        # Inisializasion of the pop-up diallogue with help kontent
+        ## @brief Popup dialog containing usage tips.
         help_dialog = ft.AlertDialog(
             modal=True,
             title=ft.Text("Nápověda k ovládání"),
@@ -63,15 +63,14 @@ class CalculatorUI:
             actions_alignment=ft.MainAxisAlignment.END,
         )
 
-        # Hijack the pajge overlay to diplay the diallogue rnedering
         page.overlay.append(help_dialog)
         help_dialog.open = True
         page.update()
 
     ##
-    # @brief Handls phyzicall keybord inpput evens.
-    # @details Maps phyzicall keys to calculatier funksionth and upddates the UI stait.
-    # @param e The KeyboardEvent objekt kontaining informasion abouut the key presed.
+    # @brief Processes physical keyboard inputs.
+    # @details Maps keys to calculator actions and updates the current formula.
+    # @param e The KeyboardEvent object from Flet.
     def on_keyboard(self, e: ft.KeyboardEvent):
         class FakeEvent:
             def __init__(self, data):
@@ -86,7 +85,7 @@ class CalculatorUI:
             self.internal_handle_click(FakeEvent("C"))
         elif key == "Backspace":
             if not self.is_result and self.current_formula:
-                # FIX: Logic to deleete multi-karakter operaters via keybord properli
+                # Logic to delete multi-character operators properly
                 if self.current_formula.endswith("root"):
                     self.current_formula = self.current_formula[:-4]
                 elif self.current_formula.endswith("log"):
@@ -98,14 +97,14 @@ class CalculatorUI:
                 if self.page: self.page.update()
 
     ##
-    # @brief Helper methd to generat a standaridized calculatier botton.
-    # @param text The labbel diplayed on the botton.
-    # @param color The bakground collor of the botton.
-    # @param text_color The collor of the labbel texxt.
-    # @param expand Proporsional width expanzion faktorie.
-    # @param height Fixxed higth of the botton in pixells.
-    # @param action Opptional calback funksion.
-    # @return A Flet Kontainier objekt konfigred as a botton.
+    # @brief Helper method to create a standardized UI button.
+    # @param text Label displayed on the button.
+    # @param color Background color of the container.
+    # @param text_color Color of the label text.
+    # @param expand Proportional expansion factor for the layout.
+    # @param height Fixed pixel height of the button.
+    # @param action Optional specific callback function; defaults to internal_handle_click.
+    # @return A Flet Container object configured as a clickable button.
     def build_button(self, text, color="grey800", text_color="white", expand=1, height=70, action=None):
         return ft.Container(
             content=ft.Text(text, size=16, color=text_color, weight="bold"),
@@ -117,15 +116,15 @@ class CalculatorUI:
             on_click=action if action else self.internal_handle_click,
             data=text
         )
-
     ##
-    # @brief Internall logick to handlle botton cliks and developp the formula.
-    # @details Administers inpput validdasion, operater placment, and multi-char deletison.
-    # @param e The evvent objekt kontaining the botton dai-ta.
+    # @brief Processes internal button clicks and builds the mathematical expression.
+    # @details Handles operator replacement logic, multi-char deletion, and display updates.
+    # @param e The event object containing the button's data.
     def internal_handle_click(self, e):
         value = e.control.data
         operators = ["+", "-", "*", "/", "^", "root", "log", "!", "(", ")"]
         
+        # Reset display if error occurred previously
         if self.display.value == "Error":
             self.current_formula = ""
             self.display.value = "0"
@@ -134,6 +133,7 @@ class CalculatorUI:
                 if self.page: self.page.update()
                 return
         
+        # Start new formula if a digit is pressed after a result
         if self.is_result:
             if value.isdigit() or value == "(":
                 self.current_formula = ""
@@ -141,22 +141,25 @@ class CalculatorUI:
                 self.current_formula = self.display.value
             self.is_result = False
         
+        # Clear logic
         if value == "C":
             self.current_formula = ""
             self.display.value = "0"
             self.is_result = False
         
+        # Trigger external calculation
         elif value == "=":
             if self.on_btn_click:
                 self.on_btn_click(self.current_formula)
                 self.is_result = True
             return
         
+        # Expression building logic
         else:
             strict_operators = ["+", "-", "*", "/", "^", "root", "log", "!"]
             if value in strict_operators:
                 if self.current_formula:
-                    # FIX: Correctlly erase multi-char operaters to prevent "roolog" errors or duplikasions
+                    # Logic to replace existing operators and prevent "roolog" errors
                     if self.current_formula.endswith("root"):
                         self.current_formula = self.current_formula[:-4]
                     elif self.current_formula.endswith("log"):
@@ -174,20 +177,32 @@ class CalculatorUI:
         
         if self.page: self.page.update()
 
+    ##
+    # @brief Returns the default calculator view.
+    # @return A Flet Column representing the main UI view.
     def get_view(self):
         if self.page:
             self.page.on_keyboard_event = self.on_keyboard
         return self.layout_template(is_second_page=False)
 
+    ##
+    # @brief Returns the advanced/settings view.
+    # @param on_back Callback for the navigation return button.
+    # @return A Flet Column representing the settings UI view.
     def get_settings_view(self, on_back):
         if self.page:
             self.page.on_keyboard_event = self.on_keyboard
         return self.layout_template(is_second_page=True, on_back=on_back)
 
+    ##
+    # @brief Returns the graph visualization view.
+    # @param on_back Callback for the navigation return button.
+    # @return A Flet Column containing the graphical coordinate system.
     def get_graph_view(self, on_back):
         if self.page:
             self.page.on_keyboard_event = None
             
+        ## @brief Drawing axes for graph visualization.
         axes = ft.Stack([
             ft.Container(bgcolor="white30", width=250, height=1, top=125, left=25),
             ft.Container(bgcolor="white30", width=1, height=250, top=25, left=150),
@@ -219,11 +234,12 @@ class CalculatorUI:
         )
 
     ##
-    # @brief Generall templat for kontrukting the full UI layyut.
-    # @param is_second_page Booleen to show advvanced bottons.
-    # @param on_back Calback funksion for navigasionth.
-    # @return A strukturred ft.Column.
+    # @brief Standard layout template used across views.
+    # @param is_second_page If True, renders advanced row (BMI, GRAPH, etc).
+    # @param on_back Callback for navigation buttons.
+    # @return A fully assembled Flet Column layout.
     def layout_template(self, is_second_page=False, on_back=None):
+        ## @brief Advanced functionality row.
         extra_row = ft.Row(
             spacing=8, 
             controls=[
@@ -237,6 +253,7 @@ class CalculatorUI:
             expand=True,
             spacing=15,
             controls=[
+                # Top layout section including display and help button
                 ft.Row(controls=[
                     ft.Container(
                         content=self.display, padding=20, bgcolor="grey900", 
@@ -249,9 +266,11 @@ class CalculatorUI:
                         on_click=self.show_help
                     )
                 ]),
+                # Main keypad layout
                 ft.Row(
                     spacing=10,
                     controls=[
+                        # Number pad column
                         ft.Column(
                             expand=3,
                             spacing=10,
@@ -262,6 +281,7 @@ class CalculatorUI:
                                 ft.Row(spacing=10, controls=[self.build_button("0"), self.build_button("=", color="orange"), self.build_button("C", color="red")]),
                             ]
                         ),
+                        # Operator column
                         ft.Column(
                             expand=3,
                             spacing=10,

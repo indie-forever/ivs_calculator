@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['test_5fadd_0',['test_add',['../classtest__math_1_1TestMathBasic.html#a272f88d8e763f705b5f89505ae71ff3e',1,'test_math::TestMathBasic']]],
+  ['test_5faddition_1',['test_addition',['../classtest__logic_1_1TestMain.html#a3b1f5e61e30de93fad5c44777cfb22f7',1,'test_logic::TestMain']]],
+  ['test_5fbrackets_5fand_5fpriority_2',['test_brackets_and_priority',['../classtest__logic_1_1TestMain.html#aa84f4f008238f74bcf3984ef3adeb604',1,'test_logic::TestMain']]],
+  ['test_5fdiv_3',['test_div',['../classtest__math_1_1TestMathBasic.html#a97f8d1688bdf0d5d4f8bec24a256551c',1,'test_math::TestMathBasic']]],
+  ['test_5fdivision_4',['test_division',['../classtest__logic_1_1TestMain.html#a4737d6e2299442148fe7974363d4bdfb',1,'test_logic::TestMain']]],
+  ['test_5fdivision_5fby_5fzero_5',['test_division_by_zero',['../classtest__logic_1_1TestMain.html#a8490bd7774c1967686ffc156faaead99',1,'test_logic::TestMain']]],
+  ['test_5ffactorial_6',['test_factorial',['../classtest__logic_1_1TestMain.html#ad7e23b435aaa168385a9fe417ab2ad0e',1,'test_logic.TestMain.test_factorial()'],['../classtest__math_1_1TestMathBasic.html#a73cacd07514220143f0c68c05ab4769e',1,'test_math.TestMathBasic.test_factorial(self)']]],
+  ['test_5flog_7',['test_log',['../classtest__math_1_1TestMathBasic.html#a07a2af3e03e7e1b212fcd85a09c4a5e4',1,'test_math::TestMathBasic']]],
+  ['test_5flogarithm_8',['test_logarithm',['../classtest__logic_1_1TestMain.html#a98a51471d46c9f83aa43dd17c5560b11',1,'test_logic::TestMain']]],
+  ['test_5flogarithm_5fdif_5fbase_9',['test_logarithm_dif_base',['../classtest__logic_1_1TestMain.html#a8a17b71f0758a7857f9d405381f91a80',1,'test_logic::TestMain']]],
+  ['test_5fmul_10',['test_mul',['../classtest__math_1_1TestMathBasic.html#af88a77913073106fbb30084e4d72bd00',1,'test_math::TestMathBasic']]],
+  ['test_5fmul_5fdecimal_5finput_11',['test_mul_decimal_input',['../classtest__logic_1_1TestMain.html#ac9fe9280de3a95a4f06d512f69d784f7',1,'test_logic::TestMain']]],
+  ['test_5fmultiple_5fbrackets_12',['test_multiple_brackets',['../classtest__logic_1_1TestMain.html#a9376b47b677e440145e3ab14de89c8cd',1,'test_logic::TestMain']]],
+  ['test_5fmultiplication_13',['test_multiplication',['../classtest__logic_1_1TestMain.html#a6e5076cc5d1b8a8093bceda1f30a80e2',1,'test_logic::TestMain']]],
+  ['test_5fmultiplication_5fby_5fzero_14',['test_multiplication_by_zero',['../classtest__logic_1_1TestMain.html#a0bc37596a52a11746b9ead3af2ad6f52',1,'test_logic::TestMain']]],
+  ['test_5fpow_15',['test_pow',['../classtest__math_1_1TestMathBasic.html#a2778107715f990748148cc578a48bbc4',1,'test_math::TestMathBasic']]],
+  ['test_5fpower_16',['test_power',['../classtest__logic_1_1TestMain.html#a2df8d16618c14252ee3c945f4e5ccbe8',1,'test_logic::TestMain']]],
+  ['test_5fpriority_17',['test_priority',['../classtest__logic_1_1TestMain.html#a2800327aa19b1bfe80942fc1131e1d22',1,'test_logic::TestMain']]],
+  ['test_5froot_18',['test_root',['../classtest__logic_1_1TestMain.html#ace9c5c6db4b5fc37bcb1c95eef35e71c',1,'test_logic.TestMain.test_root()'],['../classtest__math_1_1TestMathBasic.html#a6fcf6f40b0094ef3feff574c7d400e4b',1,'test_math.TestMathBasic.test_root(self)']]],
+  ['test_5fsub_19',['test_sub',['../classtest__math_1_1TestMathBasic.html#a3fbac721800391a34249e95943dcebe6',1,'test_math::TestMathBasic']]],
+  ['test_5fsubstitution_20',['test_substitution',['../classtest__logic_1_1TestMain.html#a523a1ff9621604cad13a5a8050f8b6a0',1,'test_logic::TestMain']]],
+  ['test_5fwriting_5fnumbers_21',['test_writing_numbers',['../classtest__logic_1_1TestMain.html#a236a8136974de87966cdf0ec0aea1ccf',1,'test_logic::TestMain']]],
+  ['test_5fwriting_5fnumbers_5fzero_22',['test_writing_numbers_zero',['../classtest__logic_1_1TestMain.html#ad1fece0d656d7513f38134eb790fc902',1,'test_logic::TestMain']]]
+];

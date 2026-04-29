@@ -1,0 +1,131 @@
+\doxysection{math\+\_\+lib.\+Math\+Lib Class Reference}
+\hypertarget{classmath__lib_1_1MathLib}{}\label{classmath__lib_1_1MathLib}\index{math\_lib.MathLib@{math\_lib.MathLib}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmath__lib_1_1MathLib_ae25da6c631db9942d9011ee1c84aaddd}{add}} (a, b)
+\item 
+\mbox{\hyperlink{classmath__lib_1_1MathLib_ac7e1c8f8734647192d9a9b18adcb7f43}{sub}} (a, b)
+\item 
+\mbox{\hyperlink{classmath__lib_1_1MathLib_a05fdabcb4d023a28f6e70456f29909dd}{mul}} (a, b)
+\item 
+\mbox{\hyperlink{classmath__lib_1_1MathLib_a45c0799d6051fcde80a50cb7b1416424}{div}} (a, b)
+\item 
+\mbox{\hyperlink{classmath__lib_1_1MathLib_af6d1294ade692c7dfea6116102213ae8}{factorial}} (a)
+\item 
+\mbox{\hyperlink{classmath__lib_1_1MathLib_a4ba60874c4d3850c577f33c76395efbe}{pow}} (base, exponent)
+\item 
+\mbox{\hyperlink{classmath__lib_1_1MathLib_af6498e2b7a200cd31be47d744dc88ec7}{root}} (A, n)
+\item 
+\mbox{\hyperlink{classmath__lib_1_1MathLib_afb041c30c8533dc5f3736b6c7c94c683}{log}} (a, x)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@brief A mathematical library for basic and advanced arithmetic operations.
+@details Provides functionality for addition, subtraction, multiplication, 
+division, factorial, n-th root, power, and logarithms.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmath__lib_1_1MathLib_ae25da6c631db9942d9011ee1c84aaddd}\label{classmath__lib_1_1MathLib_ae25da6c631db9942d9011ee1c84aaddd} 
+\index{math\_lib.MathLib@{math\_lib.MathLib}!add@{add}}
+\index{add@{add}!math\_lib.MathLib@{math\_lib.MathLib}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily math\+\_\+lib.\+Math\+Lib.\+add (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}@brief Calculates the sum of two numbers.
+
+@param a The first number.
+@param b The second number.
+@return The result of a + b.
+\end{DoxyVerb}
+ \Hypertarget{classmath__lib_1_1MathLib_a45c0799d6051fcde80a50cb7b1416424}\label{classmath__lib_1_1MathLib_a45c0799d6051fcde80a50cb7b1416424} 
+\index{math\_lib.MathLib@{math\_lib.MathLib}!div@{div}}
+\index{div@{div}!math\_lib.MathLib@{math\_lib.MathLib}}
+\doxysubsubsection{\texorpdfstring{div()}{div()}}
+{\footnotesize\ttfamily math\+\_\+lib.\+Math\+Lib.\+div (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}@brief Calculates the quotient of two numbers with zero division check.
+
+@param a The dividend.
+@param b The divisor (must not be 0).
+@return The result of a / b, or None if division by zero is attempted.
+\end{DoxyVerb}
+ \Hypertarget{classmath__lib_1_1MathLib_af6d1294ade692c7dfea6116102213ae8}\label{classmath__lib_1_1MathLib_af6d1294ade692c7dfea6116102213ae8} 
+\index{math\_lib.MathLib@{math\_lib.MathLib}!factorial@{factorial}}
+\index{factorial@{factorial}!math\_lib.MathLib@{math\_lib.MathLib}}
+\doxysubsubsection{\texorpdfstring{factorial()}{factorial()}}
+{\footnotesize\ttfamily math\+\_\+lib.\+Math\+Lib.\+factorial (\begin{DoxyParamCaption}\item[{}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}@brief Calculates the factorial of a non-negative integer.
+
+@param a The number to calculate the factorial from (must be a non-negative integer).
+@return The factorial result, or None if the input is invalid.
+\end{DoxyVerb}
+ \Hypertarget{classmath__lib_1_1MathLib_afb041c30c8533dc5f3736b6c7c94c683}\label{classmath__lib_1_1MathLib_afb041c30c8533dc5f3736b6c7c94c683} 
+\index{math\_lib.MathLib@{math\_lib.MathLib}!log@{log}}
+\index{log@{log}!math\_lib.MathLib@{math\_lib.MathLib}}
+\doxysubsubsection{\texorpdfstring{log()}{log()}}
+{\footnotesize\ttfamily math\+\_\+lib.\+Math\+Lib.\+log (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}@brief Calculates the logarithm of x with base a.
+
+@param a The base of the logarithm (must be positive and not equal to 1).
+@param x The value to calculate the logarithm for (must be greater than 0).
+@return The result of log_a(x), or None if parameters are invalid.
+\end{DoxyVerb}
+ \Hypertarget{classmath__lib_1_1MathLib_a05fdabcb4d023a28f6e70456f29909dd}\label{classmath__lib_1_1MathLib_a05fdabcb4d023a28f6e70456f29909dd} 
+\index{math\_lib.MathLib@{math\_lib.MathLib}!mul@{mul}}
+\index{mul@{mul}!math\_lib.MathLib@{math\_lib.MathLib}}
+\doxysubsubsection{\texorpdfstring{mul()}{mul()}}
+{\footnotesize\ttfamily math\+\_\+lib.\+Math\+Lib.\+mul (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}@brief Calculates the product of two numbers.
+
+@param a The first factor.
+@param b The second factor.
+@return The result of a * b.
+\end{DoxyVerb}
+ \Hypertarget{classmath__lib_1_1MathLib_a4ba60874c4d3850c577f33c76395efbe}\label{classmath__lib_1_1MathLib_a4ba60874c4d3850c577f33c76395efbe} 
+\index{math\_lib.MathLib@{math\_lib.MathLib}!pow@{pow}}
+\index{pow@{pow}!math\_lib.MathLib@{math\_lib.MathLib}}
+\doxysubsubsection{\texorpdfstring{pow()}{pow()}}
+{\footnotesize\ttfamily math\+\_\+lib.\+Math\+Lib.\+pow (\begin{DoxyParamCaption}\item[{}]{base,  }\item[{}]{exponent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}@brief Calculates the power of a number.
+
+@param base The base of the power.
+@param exponent The exponent (must be an integer).
+@return The result of base^exponent, or None if the exponent is not an integer.
+\end{DoxyVerb}
+ \Hypertarget{classmath__lib_1_1MathLib_af6498e2b7a200cd31be47d744dc88ec7}\label{classmath__lib_1_1MathLib_af6498e2b7a200cd31be47d744dc88ec7} 
+\index{math\_lib.MathLib@{math\_lib.MathLib}!root@{root}}
+\index{root@{root}!math\_lib.MathLib@{math\_lib.MathLib}}
+\doxysubsubsection{\texorpdfstring{root()}{root()}}
+{\footnotesize\ttfamily math\+\_\+lib.\+Math\+Lib.\+root (\begin{DoxyParamCaption}\item[{}]{A,  }\item[{}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}@brief Calculates the n-th root of a number A.
+
+@param A The value to be rooted.
+@param n The degree of the root (must be positive).
+@return The n-th root of A, or None if parameters are invalid.
+\end{DoxyVerb}
+ \Hypertarget{classmath__lib_1_1MathLib_ac7e1c8f8734647192d9a9b18adcb7f43}\label{classmath__lib_1_1MathLib_ac7e1c8f8734647192d9a9b18adcb7f43} 
+\index{math\_lib.MathLib@{math\_lib.MathLib}!sub@{sub}}
+\index{sub@{sub}!math\_lib.MathLib@{math\_lib.MathLib}}
+\doxysubsubsection{\texorpdfstring{sub()}{sub()}}
+{\footnotesize\ttfamily math\+\_\+lib.\+Math\+Lib.\+sub (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}@brief Calculates the difference between two numbers.
+
+@param a The initial value.
+@param b The value to subtract.
+@return The result of a - b.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{math__lib_8py}{math\+\_\+lib.\+py}}\end{DoxyCompactItemize}

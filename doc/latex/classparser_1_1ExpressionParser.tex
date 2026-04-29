@@ -1,0 +1,83 @@
+\doxysection{parser.\+Expression\+Parser Class Reference}
+\hypertarget{classparser_1_1ExpressionParser}{}\label{classparser_1_1ExpressionParser}\index{parser.ExpressionParser@{parser.ExpressionParser}}
+
+
+Class responsible for parsing strings into mathematical operations.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classparser_1_1ExpressionParser_aa0ed84e79036eb4b3e653e375da959cf}{parse\+\_\+and\+\_\+calc}} (self, expression)
+\begin{DoxyCompactList}\small\item\em Parses the string and calculates the result with respect to parentheses and priority. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classparser_1_1ExpressionParser_ae0335d65db7177d12f219bfd3a2ee060}{process\+\_\+unaries}} (self, tokens)
+\begin{DoxyCompactList}\small\item\em Processes unary operators in the token list. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classparser_1_1ExpressionParser_a42c90e65e46000e25c48865693f63636}{process\+\_\+op}} (self, tokens, ops)
+\begin{DoxyCompactList}\small\item\em Processes binary operators based on precedence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class responsible for parsing strings into mathematical operations. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classparser_1_1ExpressionParser_aa0ed84e79036eb4b3e653e375da959cf}\label{classparser_1_1ExpressionParser_aa0ed84e79036eb4b3e653e375da959cf} 
+\index{parser.ExpressionParser@{parser.ExpressionParser}!parse\_and\_calc@{parse\_and\_calc}}
+\index{parse\_and\_calc@{parse\_and\_calc}!parser.ExpressionParser@{parser.ExpressionParser}}
+\doxysubsubsection{\texorpdfstring{parse\_and\_calc()}{parse\_and\_calc()}}
+{\footnotesize\ttfamily parser.\+Expression\+Parser.\+parse\+\_\+and\+\_\+calc (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{expression }\end{DoxyParamCaption})}
+
+
+
+Parses the string and calculates the result with respect to parentheses and priority. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em expression} & The mathematical string to evaluate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result as a string or "{}\+Error"{} on failure. 
+\end{DoxyReturn}
+\Hypertarget{classparser_1_1ExpressionParser_a42c90e65e46000e25c48865693f63636}\label{classparser_1_1ExpressionParser_a42c90e65e46000e25c48865693f63636} 
+\index{parser.ExpressionParser@{parser.ExpressionParser}!process\_op@{process\_op}}
+\index{process\_op@{process\_op}!parser.ExpressionParser@{parser.ExpressionParser}}
+\doxysubsubsection{\texorpdfstring{process\_op()}{process\_op()}}
+{\footnotesize\ttfamily parser.\+Expression\+Parser.\+process\+\_\+op (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{tokens,  }\item[{}]{ops }\end{DoxyParamCaption})}
+
+
+
+Processes binary operators based on precedence. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tokens} & Current list of expression tokens. \\
+\hline
+{\em ops} & A list of operators to process in this pass. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reduced list of tokens with the binary operations resolved. 
+\end{DoxyReturn}
+\Hypertarget{classparser_1_1ExpressionParser_ae0335d65db7177d12f219bfd3a2ee060}\label{classparser_1_1ExpressionParser_ae0335d65db7177d12f219bfd3a2ee060} 
+\index{parser.ExpressionParser@{parser.ExpressionParser}!process\_unaries@{process\_unaries}}
+\index{process\_unaries@{process\_unaries}!parser.ExpressionParser@{parser.ExpressionParser}}
+\doxysubsubsection{\texorpdfstring{process\_unaries()}{process\_unaries()}}
+{\footnotesize\ttfamily parser.\+Expression\+Parser.\+process\+\_\+unaries (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{tokens }\end{DoxyParamCaption})}
+
+
+
+Processes unary operators in the token list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tokens} & List of mathematical tokens in the string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new list of tokens with unary operations resolved. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{parser_8py}{parser.\+py}}\end{DoxyCompactItemize}

@@ -34,6 +34,35 @@ class CalculatorUI:
         ## @var on_go_to_graph Externall calback to trijer navigasion to the graff viwe.
         self.on_go_to_graph = None
 
+    # @brief Opens a help dialog with instructions.
+    def show_help(self, e):
+        print("TLAČÍTKO NÁPOVĚDY BYLO STISKNUTO!")
+        page = e.page
+        
+        def close_help(e):
+            page.dialog.open = False
+            page.update()
+        
+        help_dialog = ft.AlertDialog(
+            title=ft.Text("Nápověda k ovládání"),
+            content=ft.Text(
+                "Matematické funkce:\n"
+                "- Základní operace: +, -, *, /\n"
+                "- Faktoriál: tlačítko '!' nebo klávesa '!'\n"
+                "- Mocnina: tlačítko '^'\n"
+                "- Odmocnina: tlačítko 'root'\n\n"
+                "Ovládání:\n"
+                "Kalkulačku lze ovládat myší nebo klávesnicí.\n\n"
+                "Chybová hlášení:\n"
+                "Při chybě (např. dělení nulou) se zobrazí vysvětlující text."
+            ),
+            actions=[ft.TextButton("Zavřít", on_click=close_help)]
+        )
+        
+        page.dialog = help_dialog
+        help_dialog.open = True
+        page.update()
+
     ##
     # @brief Handls phyzicall keybord inpput evens.
     # @details Maps phyzicall keys to calculatier funksionth and upddates the UI stait.
@@ -202,7 +231,11 @@ class CalculatorUI:
             expand=True,
             spacing=15,
             controls=[
-                ft.Row(controls=[ft.Container(content=self.display, padding=20, bgcolor="grey900", alignment=ft.Alignment(1, 0), border_radius=10, height=120, expand=True)]),
+                ##ft.Row(controls=[ft.Container(content=self.display, padding=20, bgcolor="grey900", alignment=ft.Alignment(1, 0), border_radius=10, height=120, expand=True)]),
+                ft.Row(controls=[
+                    ft.Container(content=self.display, padding=20, bgcolor="grey900", alignment=ft.Alignment(1, 0), border_radius=10, height=120, expand=True),
+                    ft.Container(content=ft.Text("?", size=40, weight="bold", color="white"), bgcolor="blue700", border_radius=10, width=100, height=120, alignment=ft.Alignment(0, 0), on_click=self.show_help)
+                ]),
                 ft.Row(
                     spacing=10,
                     controls=[
